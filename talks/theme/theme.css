@@ -1,0 +1,60 @@
+@import "../../node_modules/reveal.js/css/theme/sky.css";
+@import "fonts.css";
+
+.reveal h1, .reveal h2, .reveal  h3, .reveal h4, .reveal h5, .reveal h6 {
+    font-family: 'Boogaloo';
+} 
+
+.reveal div {
+    font-family: "Averia Serif Libre";
+}
+
+.reveal code, .reveal pre {
+    font-family: "IBM Plex Mono";
+}
+
+code {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#footer-left {
+    position: fixed;
+    left: 1vh;
+    bottom: 1vh;
+    text-align: left;
+}
+
+#footer-logo {
+    width: 13vh;
+    height: 13vh;
+}
+
+.quoteblock .attribution {
+    margin-top: 0.5em;
+    margin-right: 0.5ex;
+    text-align: right;
+}
+
+.reveal div.attribution.paragraph, .reveal div.attribution.paragraph p {
+    font-size: 6pt;
+    position:absolute;
+    bottom:0;
+    left:0;
+    width: 100%;
+}
+
+.reveal p {
+    margin: 0px;
+}
+
+.reveal pre code {
+    margin: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.type h2, .type h3 {
+    text-transform: none;
+    white-space: nowrap;
+}

@@ -1,0 +1,267 @@
+:title: JMH
+include::theme/theme.adoc[]
+
+_Java Microbenchmark Harness_
+
+== Java Benchmarking
+
+* JIT Optimization
+* Reproduction
+* Concurrency
+
+== Configuration
+
+_at the example of maven (what else)_
+
+=== Dependencies
+[.code][source,xml]
+----
+<dependencies>
+    <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-core</artifactId>
+        <version>1.21</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-generator-annprocess</artifactId>
+        <version>1.21</version>
+    </dependency>
+</dependencies>
+----
+
+=== Build
+[.code][source,xml]
+----
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>3.2.1</version>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+                <finalName>benchmarks</finalName>
+                <transformers>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <mainClass>org.openjdk.jmh.Main</mainClass>
+                    </transformer>
+                </transformers>
+                <filters><filter>
+                    <artifact>*:*</artifact>
+                    <excludes>
+                        <exclude>META-INF/*.SF</exclude>
+                        <exclude>META-INF/*.DSA</exclude>
+                        <exclude>META-INF/*.RSA</exclude>
+                    </excludes>
+                </filter></filters>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+----
+
+=== Execution
+
+`java -jar target/benchmarks.jar`
+
+== Creating Tests
+
+=== Simplest case
+
+[.code][source,java]
+----
+import org.openjdk.jmh.annotations.Benchmark;
+
+public class SomethingPerformanceCritical {
+    @Benchmark
+    public void testMePlenty() {
+        // Doing heavy calculation stuff
+    }
+}
+----
+
+=== Configuration Overview
+
+[.code][source,java]
+----
+@Benchmark
+@BenchmarkMode({Mode.Throughput, Mode.SingleShotTime, Mode.SampleTime, Mode.AverageTime, Mode.All})
+@Fork(warmups=5, value = 5)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@OperationsPerInvocation(1)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Threads(5)
+@Timeout(time = 100, timeUnit = TimeUnit.MILLISECONDS)
+@Warmup(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+public void configure() {}
+----
+
+=== Modes
+`@BenchmarkMode`
+
+* Throughput -> Ops per second
+* Average Time -> Avg duration
+* Sample Time -> Duration statistics (min, max...)
+* Single Shot Time -> Time for single, cold execution
+* All
+
+=== State
+`@State` _(Thread, Group, Benchmark)_,
+`@Setup`, `@TearDown`
+[.code][source,java]
+----
+@State(Scope.Thread)
+public static class MyState {
+    public int a = 1;
+    public int b = 2;
+    public int sum ;
+}
+
+@Benchmark @BenchmarkMode(Mode.Throughput) @OutputTimeUnit(TimeUnit.MINUTES)
+public void testMethod(MyState state) {
+    state.sum = state.a + state.b;
+}
+----
+
+== Remarks
+
+* Loop Optimizations
+* Dead Code Elimination
+[.code][source,java]
+----
+@Benchmark
+public void testMethod(Blackhole blackhole) {
+    // (...)
+    blackhole.consume(computationResult);
+}
+----
+
+== Output
+
+=== Example
+[.code][source.sh]
+----
+# JMH version: 1.21
+# VM version: JDK 12, OpenJDK 64-Bit Server VM, 12+33
+# VM invoker: C:\Java\jdk12\bin\java.exe
+# VM options: --enable-preview
+# Warmup: 1 iterations, 5 s each
+# Measurement: 2 iterations, 5 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: bayern.jugin.jmh.LoopingComparison.imperativeLoop
+
+# Run progress: 0,00% complete, ETA 00:02:15
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 2,941 ms/op
+Iteration   1: 2,206 ms/op
+Iteration   2: 2,273 ms/op
+
+# Run progress: 11,11% complete, ETA 00:02:03
+# Fork: 1 of 2
+# Warmup Iteration   1: 3,094 ms/op
+Iteration   1: 2,279 ms/op
+Iteration   2: 2,388 ms/op
+
+# Run progress: 22,22% complete, ETA 00:01:48
+# Fork: 2 of 2
+# Warmup Iteration   1: 2,651 ms/op
+Iteration   1: 2,283 ms/op
+Iteration   2: 2,335 ms/op
+
+
+Result "bayern.jugin.jmh.LoopingComparison.imperativeLoop":
+  2,321 |(99.9%) 0,331 ms/op [Average]
+  (min, avg, max) = (2,279, 2,321, 2,388), stdev = 0,051
+  CI (99.9%): [1,990, 2,653] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 12, OpenJDK 64-Bit Server VM, 12+33
+# VM invoker: C:\Java\jdk12\bin\java.exe
+# VM options: --enable-preview
+# Warmup: 1 iterations, 5 s each
+# Measurement: 2 iterations, 5 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: bayern.jugin.jmh.LoopingComparison.iteratorLoop
+
+# Run progress: 33,33% complete, ETA 00:01:32
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 2,747 ms/op
+Iteration   1: 2,216 ms/op
+Iteration   2: 2,241 ms/op
+
+# Run progress: 44,44% complete, ETA 00:01:17
+# Fork: 1 of 2
+# Warmup Iteration   1: 2,903 ms/op
+Iteration   1: 2,238 ms/op
+Iteration   2: 2,292 ms/op
+
+# Run progress: 55,56% complete, ETA 00:01:01
+# Fork: 2 of 2
+# Warmup Iteration   1: 3,200 ms/op
+Iteration   1: 2,476 ms/op
+Iteration   2: 3,241 ms/op
+
+
+Result "bayern.jugin.jmh.LoopingComparison.iteratorLoop":
+  2,562 |(99.9%) 2,999 ms/op [Average]
+  (min, avg, max) = (2,238, 2,562, 3,241), stdev = 0,464
+  CI (99.9%): [? 0, 5,560] (assumes normal distribution)
+
+
+# JMH version: 1.21
+# VM version: JDK 12, OpenJDK 64-Bit Server VM, 12+33
+# VM invoker: C:\Java\jdk12\bin\java.exe
+# VM options: --enable-preview
+# Warmup: 1 iterations, 5 s each
+# Measurement: 2 iterations, 5 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: bayern.jugin.jmh.LoopingComparison.rangeLoop
+
+# Run progress: 66,67% complete, ETA 00:00:46
+# Warmup Fork: 1 of 1
+# Warmup Iteration   1: 4,193 ms/op
+Iteration   1: 2,997 ms/op
+Iteration   2: 2,359 ms/op
+
+# Run progress: 77,78% complete, ETA 00:00:30
+# Fork: 1 of 2
+# Warmup Iteration   1: 2,860 ms/op
+Iteration   1: 2,241 ms/op
+Iteration   2: 2,815 ms/op
+
+# Run progress: 88,89% complete, ETA 00:00:15
+# Fork: 2 of 2
+# Warmup Iteration   1: 3,072 ms/op
+Iteration   1: 2,355 ms/op
+Iteration   2: 2,269 ms/op
+
+
+Result "bayern.jugin.jmh.LoopingComparison.rangeLoop":
+  2,420 |(99.9%) 1,730 ms/op [Average]
+  (min, avg, max) = (2,241, 2,420, 2,815), stdev = 0,268
+  CI (99.9%): [0,690, 4,150] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:02:19
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                         Mode  Cnt  Score   Error  Units
+LoopingComparison.imperativeLoop  avgt    4  2,321 | 0,331  ms/op
+LoopingComparison.iteratorLoop    avgt    4  2,562 | 2,999  ms/op
+LoopingComparison.rangeLoop       avgt    4  2,420 | 1,730  ms/op
+----
+

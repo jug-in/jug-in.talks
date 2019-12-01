@@ -1,0 +1,3 @@
+https://jaxenter.de/shenandoah-garbage-collector-76213
+https://wiki.openjdk.java.net/display/shenandoah/Main
+https://cr.openjdk.java.net/~iris/se/12/latestSpec/apidiffs/overview-summary.html

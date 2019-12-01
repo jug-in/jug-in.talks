@@ -1,0 +1,61 @@
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+code {
+    background-color: #222;
+    border-radius: 0.2em;
+}
+
+.type h2, .type h3 {
+    font-size: larger;
+    font-family: monospace;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.reveal h2, .reveal h3 {
+    font-size: 1em;
+}
+
+#footer-left {
+    color: #555;
+    position: fixed;
+    left: 2vh;
+    bottom: 2vh;
+    text-align: left;
+}
+
+#footer-logo {
+    width: 10vh;
+    height: 10vh;
+}
+
+.quoteblock .attribution {
+    margin-top: 0.5em;
+    margin-right: 0.5ex;
+    text-align: right;
+}
+
+.reveal div.attribution.paragraph, .reveal div.attribution.paragraph p {
+    font-size: 6pt;
+    position:absolute;
+    bottom:0;
+    left:0;
+    width: 100%;
+}
+
+.reveal p {
+    margin: 0px;
+}
+
+.reveal pre {
+    margin: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.reveal pre code {
+    overflow: hidden;
+}

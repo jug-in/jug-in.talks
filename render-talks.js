@@ -1,38 +1,52 @@
-const slides = ["java.time.adoc"]
+const fs = require('fs');
+const talks = fs.readdirSync("talks").filter(file => file.match(/(.*\.(adoc))/ig)).map(file => "talks/" + file);
 
 const asciidoctor = require('asciidoctor.js')();
 const asciidoctorRevealjs = require('asciidoctor-reveal.js');
 asciidoctorRevealjs.register()
 
-renderSlides()
+const renderOptions = { safe: 'safe', backend: 'revealjs' };
+
+renderAllTalks()
 
 if (process.argv[2] == "watch") {
     watchAndRenderContinuous()
-} 
+}
 
-function renderSlides() {
-    const renderOptions = { safe: 'safe', backend: 'revealjs' };
-    slides.forEach(talk => {
-        console.log(Date() + " - Rendering " + talk);
-        asciidoctor.convertFile(talk, renderOptions);
-    });
+function renderAllTalks() {
+    talks.forEach(talk => render(talk));
+}
+
+function render(talk) {
+    console.log(Date() + " - Rendering " + talk);
+    asciidoctor.convertFile(talk, renderOptions);
+    let html = talk.split(".adoc")[0] + ".html";
+    fs.renameSync(html, html.split("/")[1]);
 }
 
 function watchAndRenderContinuous() {
-    const fs = require('fs');
-
     let fsWait = false;
-    fs.readdirSync(".").filter(file => file.match(/(.*\.(adoc|css))|(theme)/ig)).forEach(file => {
-        console.log("Watching: " + file)
-        fs.watch(file, (e, f) => {
+    talks.forEach(talk => {
+        console.log("Watching: " + talk)
+        fs.watch(talk, (e, f) => {
             if (fsWait) {
                 return;
             } else {
                 fsWait = setTimeout(() => {
                     fsWait = false;
                 }, 250);
-                renderSlides();
+                render(talk);
             }
         });
+    });
+    fs.watch("talks/theme", (e, f) => {
+        if (fsWait) {
+            return;
+        } else {
+            fsWait = setTimeout(() => {
+                fsWait = false;
+            }, 250);
+            renderAllTalks();
+        }
     });
 }

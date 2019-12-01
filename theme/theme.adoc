@@ -1,8 +1,0 @@
-:customcss: theme/theme.css
-
-:revealjs_controlsTutorial: false
-:revealjs_controlsLayout: edges
-:revealjs_progress: true
-:revealjs_slideNumber: h.v
-:revealjs_history: true
-:revealjs_fragmentInURL: true

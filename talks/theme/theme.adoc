@@ -1,0 +1,34 @@
+:customcss: talks/theme/theme.css
+
+:revealjs_controlsTutorial: false
+:revealjs_controlsLayout: edges
+:revealjs_progress: true
+:revealjs_slideNumber: h.v
+:revealjs_history: true
+:revealjs_fragmentInURL: true
+
+= {title}
+
+[subs="attributes"]
+++++
+<script type="text/javascript">
+    window.addEventListener("load", function() {
+
+        var ourSpan = document.createElement("span");
+        var ourText = document.createTextNode("Java User Group Ingolstadt e.V.");
+        ourSpan.appendChild(ourText);     
+
+        sectionTitle = document.querySelector("body div.reveal div.slides section.title");
+        sectionTitle.insertBefore(ourSpan, sectionTitle.childNodes[0]);
+
+        revealDiv = document.querySelector("body div.reveal");
+        footer = document.getElementById("footer-left");
+        revealDiv.appendChild(footer);
+
+    } );
+
+</script>
+<div id="footer-left">
+    <img id="footer-logo" src="talks/theme/jug-in_duke.png" />
+</div>
+++++
