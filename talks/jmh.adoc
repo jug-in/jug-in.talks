@@ -1,5 +1,5 @@
 :title: JMH
-include::theme/theme.adoc[]
+include::_theme/theme.adoc[]
 
 _Java Microbenchmark Harness_
 

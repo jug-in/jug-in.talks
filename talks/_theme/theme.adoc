@@ -1,11 +1,13 @@
-:customcss: talks/theme/theme.css
+:customcss: talks/_theme/theme.css
 
+:revealjs_theme: sky
 :revealjs_controlsTutorial: false
 :revealjs_controlsLayout: edges
 :revealjs_progress: true
 :revealjs_slideNumber: h.v
 :revealjs_history: true
 :revealjs_fragmentInURL: true
+:source-highlighter: highlightjs
 
 = {title}
 
@@ -16,7 +18,8 @@
 
         var ourSpan = document.createElement("span");
         var ourText = document.createTextNode("Java User Group Ingolstadt e.V.");
-        ourSpan.appendChild(ourText);     
+        ourSpan.setAttribute("id", "jug-title");
+        ourSpan.appendChild(ourText);
 
         sectionTitle = document.querySelector("body div.reveal div.slides section.title");
         sectionTitle.insertBefore(ourSpan, sectionTitle.childNodes[0]);
@@ -29,6 +32,6 @@
 
 </script>
 <div id="footer-left">
-    <img id="footer-logo" src="talks/theme/jug-in_duke.png" />
+    <img id="footer-logo" src="talks/_theme/jug-in_duke.png" />
 </div>
 ++++

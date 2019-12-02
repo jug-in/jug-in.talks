@@ -1,5 +1,5 @@
 :title: java.time
-include::theme/theme.adoc[]
+include::_theme/theme.adoc[]
 
 == Slide One
 

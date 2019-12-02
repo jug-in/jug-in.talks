@@ -1,5 +1,5 @@
 :title: JDK 12
-include::theme/theme.adoc[]
+include::_theme/theme.adoc[]
 :imagesdir: talks/jdk12/img
 
 _released 2019-03-19_

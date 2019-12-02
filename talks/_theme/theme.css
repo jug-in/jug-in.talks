@@ -1,4 +1,4 @@
-@import "../../node_modules/reveal.js/css/theme/sky.css";
+@import "../../node_modules/highlight.js/styles/github.css";
 @import "fonts.css";
 
 .reveal h1, .reveal h2, .reveal  h3, .reveal h4, .reveal h5, .reveal h6 {
@@ -13,10 +13,6 @@
     font-family: "IBM Plex Mono";
 }
 
-code {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
 #footer-left {
     position: fixed;
     left: 1vh;
@@ -27,6 +23,12 @@ code {
 #footer-logo {
     width: 13vh;
     height: 13vh;
+}
+
+.reveal .slide-number {
+    background-color: transparent;
+    color: rgb(59, 117, 158);
+    font-family: "IBM Plex Mono";
 }
 
 .quoteblock .attribution {
