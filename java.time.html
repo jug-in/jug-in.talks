@@ -33,12 +33,47 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
 </script>
 <div id="footer-left">
     <img id="footer-logo" src="talks/_theme/jug-in_duke.png" />
-</div></div></section>
-<section><section id="_slide_one"><h2>Slide One</h2><div class="ulist"><ul><li><p>Foo</p></li><li><p>Bar</p></li><li><p>World</p></li></ul></div></section><section id="_slide_one_one"><h2>Slide One.One</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">public static void main(String.... args) {
-    // thing
-    ding();
-}</code></pre>
-<div class="ulist"><ul><li><p>things</p></li></ul></div></section><section id="_slide_one_two"><h2>Slide One.Two</h2><div class="ulist"><ul><li><p>other</p></li></ul></div></section></section>
+</div>
+<div class="paragraph"><p><em>Wer die Zeitzone nicht kennt hat schnell Weihnachten verpennt</em></p></div></div></section>
+<section><section id="_es_war_einmal"><h2>Es war einmal&#8230;&#8203;</h2><div class="paragraph"><p>vor einigen Java Releases&#8230;&#8203;</p></div><div class="paragraph fragment"><p>in einer längst vergangenen Zeit&#8230;&#8203;</p></div><div class="paragraph fragment"><p>oder etwa doch nicht?</p></div></section><section id="_java_util_date"><h2>java.util.Date</h2><div class="paragraph"><p>Zeitpunkt in Millisekunden seit 1.1.1970</p></div>
+<pre class="highlight listingblock"><code data-noescape class="java language-java">var date = new Date(System.currentTimeMillis());
+date.toString(); // Tue Dec 03 22:08:57 CET 2019
+// uses -Duser.timezone
+date.setTime(1231211251L); // Mutable!
+// + round about 350 @Deprecated Methods</code></pre>
+<div class="paragraph fragment"><p>🤮</p></div></section><section id="_java_util_calendar"><h2>java.util.Calendar</h2><div class="paragraph"><p>Ortsgebundene Zeit, über java.util.Date gestülpt</p></div>
+<pre class="highlight listingblock"><code data-noescape class="java language-java">var cal = Calendar.getInstance(TimeZone.getDefault());
+/* Interface thate uses many -Duser.* properties for
+ * selecting an implementation out of e.g.:
+ * GregorianCalendar,
+ * BuddhistCalendar or
+ * JapaneseImperialCalendar */
+cal.toString();
+// java.util.GregorianCalendar[time=1575409375587,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="Europe/Berlin",offset=3600000,dstSavings=3600000,useDaylight=true,transitions=143,lastRule=java.util.SimpleTimeZone[id=Europe/Berlin,offset=3600000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=2,startMonth=2,startDay=-1,startDayOfWeek=1,startTime=3600000,startTimeMode=2,endMode=2,endMonth=9,endDay=-1,endDayOfWeek=1,endTime=3600000,endTimeMode=2]],firstDayOfWeek=2,minimalDaysInFirstWeek=4,ERA=1,YEAR=2019,MONTH=11,WEEK_OF_YEAR=49,WEEK_OF_MONTH=1,DAY_OF_MONTH=3,DAY_OF_YEAR=337,DAY_OF_WEEK=3,DAY_OF_WEEK_IN_MONTH=1,AM_PM=1,HOUR=10,HOUR_OF_DAY=22,MINUTE=42,SECOND=55,MILLISECOND=587,ZONE_OFFSET=3600000,DST_OFFSET=0]
+cal.set(2019, 10, 12, 18, 30, 0); // Yeah!
+cal.setTimeInMillis(1231211251L); // What?</code></pre>
+<div class="paragraph fragment"><p>🤮🤮</p></div></section><section id="_java_text_simpledateformat"><h2>java.text.SimpleDateFormat</h2><div class="paragraph"><p>Formatieren und parsen von java.util Zeiten</p></div>
+<pre class="highlight listingblock"><code data-noescape class="java language-java">var sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+sdf.setTimeZone(TimeZone.getTimeZone("CET"));
+Date toFormat = Calendar.getInstance().getTime();
+String text = sdf.format(toFormat);
+// 2019-12-03T22:50:42.562+01:00
+
+Date parsed = sdf.parse(text);
+var cal = Calendar.getInstance();
+cal.setTime(parsed);</code></pre>
+<div class="paragraph fragment"><p>🤮🤮🤮</p></div></section><section id="_arbeiten_mit_calendar"><h2>Arbeiten mit Calendar</h2><div class="paragraph"><p>Ohne (viele) Worte&#8230;&#8203;</p></div>
+<pre class="highlight listingblock"><code data-noescape class="java language-java">var today = new Date();
+var tomorrow = new Date(today.getTime() + 1000 * 60 * 60 * 24);
+
+var now = Calendar.getInstance();
+now.add(Calendar.DAY_OF_WEEK_IN_MONTH, 1); // What?
+now.add(Calendar.HOUR, -2); // All right
+now.add(Calendar.HOUR_OF_DAY, 3); // ehhh?
+// BUT: now isn't now anymore!
+var sometime = (Calendar) now.clone();
+// ...</code></pre>
+<div class="paragraph fragment"><p>🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮</p></div></section><section id="_slide_one_two"><h2>Slide One.Two</h2><div class="ulist"><ul><li><p>other</p></li></ul></div></section></section>
 <section id="_slide_two"><h2>Slide Two</h2></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)

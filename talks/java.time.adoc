@@ -1,23 +1,65 @@
 :title: java.time
 include::_theme/theme.adoc[]
+:src: time
 
-== Slide One
+_Wer die Zeitzone nicht kennt hat schnell Weihnachten verpennt_
 
-* Foo
-* Bar
-* World
+== Es war einmal...
 
-=== Slide One.One
+vor einigen Java Releases...
+[.fragment]
+in einer längst vergangenen Zeit...
+[.fragment]
+oder etwa doch nicht?
 
-[source, java]
+=== java.util.Date
+
+Zeitpunkt in Millisekunden seit 1.1.1970
+
+[source,java,indent=0]
 ----
-public static void main(String.... args) {
-    // thing
-    ding();
-}
+include::{src}/JavaUtil.java[tag=date]
 ----
 
-* things
+[.fragment]
+🤮
+
+=== java.util.Calendar
+
+Ortsgebundene Zeit, über java.util.Date gestülpt
+
+[source,java,indent=0]
+----
+include::{src}/JavaUtil.java[tag=calendar]
+----
+
+[.fragment]
+🤮🤮
+
+
+=== java.text.SimpleDateFormat
+
+Formatieren und parsen von java.util Zeiten
+
+[source,java,indent=0]
+----
+include::{src}/JavaUtil.java[tag=format]
+----
+
+[.fragment]
+🤮🤮🤮
+
+=== Arbeiten mit Calendar
+
+Ohne (viele) Worte...
+
+[source,java,indent=0]
+----
+include::{src}/JavaUtil.java[tag=calculate]
+----
+
+[.fragment]
+🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮
 
 === Slide One.Two
 

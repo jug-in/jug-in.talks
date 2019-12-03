@@ -39,7 +39,7 @@ function watchAndRenderContinuous() {
             }
         });
     });
-    fs.watch("talks/theme", (e, f) => {
+    fs.watch("talks/_theme", (e, f) => {
         if (fsWait) {
             return;
         } else {
