@@ -3,7 +3,7 @@ import java.text.*;
 
 public class JavaUtil {
     
-    public void date() {
+    void date() {
         // tag::date[]
         var date = new Date(System.currentTimeMillis());
         date.toString(); // Tue Dec 03 22:08:57 CET 2019
@@ -13,7 +13,7 @@ public class JavaUtil {
         // end::date[]
     }
    
-    public void calendar() {
+    void calendar() {
         // tag::calendar[]
         var cal = Calendar.getInstance(TimeZone.getDefault());
         /* Interface thate uses many -Duser.* properties for
@@ -28,7 +28,7 @@ public class JavaUtil {
         // end::calendar[]
     }
 
-    public void format() throws Exception{
+    void format() throws Exception{
         // tag::format[]
         var sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         sdf.setTimeZone(TimeZone.getTimeZone("CET"));
@@ -42,7 +42,7 @@ public class JavaUtil {
         // end::format[]
     }
 
-    public void calculate() {
+    void calculate() {
         // tag::calculate[]
         var today = new Date();
         var tomorrow = new Date(today.getTime() + 1000 * 60 * 60 * 24);

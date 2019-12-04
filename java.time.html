@@ -73,8 +73,47 @@ now.add(Calendar.HOUR_OF_DAY, 3); // ehhh?
 // BUT: now isn't now anymore!
 var sometime = (Calendar) now.clone();
 // ...</code></pre>
-<div class="paragraph fragment"><p>🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮</p></div></section><section id="_slide_one_two"><h2>Slide One.Two</h2><div class="ulist"><ul><li><p>other</p></li></ul></div></section></section>
-<section id="_slide_two"><h2>Slide Two</h2></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+<div class="paragraph fragment"><p>🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮</p></div></section></section>
+<section><section id="_zeitzonen"><h2>Zeitzonen</h2><div class="paragraph"><p>Gibt&#8217;s zum Download im Internet:
+<a href="https://www.iana.org/time-zones" class="bare">https://www.iana.org/time-zones</a></p></div></section><section id="_iana_tz_database"><h2>IANA TZ Database</h2><pre class="highlight listingblock"><code data-noescape class="text language-text"># Rule	NAME	FROM	TO	TYPE	IN	ON	AT	SAVE	LETTER/S
+Rule	Germany	1947	only	-	Apr	 6	3:00s	1:00	S
+Rule	Germany	1947	only	-	May	11	2:00s	2:00	M
+Rule	Germany	1947	only	-	Jun	29	3:00	1:00	S
+Rule	Germany	1948	only	-	Apr	18	2:00s	1:00	S
+Rule	Germany	1949	only	-	Apr	10	2:00s	1:00	S
+
+Rule SovietZone	1945	only	-	May	24	2:00	2:00	M # Midsummer
+Rule SovietZone	1945	only	-	Sep	24	3:00	1:00	S
+Rule SovietZone	1945	only	-	Nov	18	2:00s	0	-
+
+# Zone	NAME		STDOFF	RULES	FORMAT	[UNTIL]
+Zone	Europe/Berlin	0:53:28 -	LMT	1893 Apr
+			1:00	C-Eur	CE%sT	1945 May 24  2:00
+			1:00 SovietZone	CE%sT	1946
+			1:00	Germany	CE%sT	1980
+			1:00	EU	CE%sT</code></pre></section><section id="_zeitzonen_in_deutschland"><h2>Zeitzonen in Deutschland</h2><pre class="highlight listingblock"><code data-noescape class="text language-text"># Büsingen &lt;http://www.buesingen.de&gt;, surrounded by the Swiss canton
+# Schaffhausen, did not start observing DST in 1980 as the rest of DE
+# (West Germany at that time) and DD (East Germany at that time) did.
+# DD merged into DE, the area is currently covered by code DE in ISO 3166-1,
+# which in turn is covered by the zone Europe/Berlin.
+#
+# Source for the time in Büsingen 1980:
+# http://www.srf.ch/player/video?id=c012c029-03b7-4c2b-9164-aa5902cd58d3
+
+Link	Europe/Zurich	Europe/Busingen</code></pre></section></section>
+<section><section id="_java_8"><h2>Java 8</h2><div class="paragraph"><p>aber Rettung naht&#8230;&#8203;</p></div></section><section id="_java_time_instant"><h2>java.time.Instant</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var instant = Instant.now();
+instant.toString();
+// 2019-12-04T19:47:16.090017700Z</code></pre></section><section id="_java_time_localdate"><h2>java.time.LocalDate</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDate = LocalDate.now();
+localDate.toString(); // 2019-12-04</code></pre></section><section id="_java_time_localdatetime"><h2>java.time.LocalDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDateTime = LocalDateTime.now();
+localDateTime.toString();
+// 2019-12-04T20:47:16.231363900</code></pre></section><section id="_java_time_localtime"><h2>java.time.LocalTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localTime = LocalTime.now();
+localTime.toString(); // 20:47:16.232363100</code></pre></section><section id="_java_time_offsetdatetime"><h2>java.time.OffsetDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var offsetDateTime = OffsetDateTime.now();
+offsetDateTime.toString();
+// 2019-12-04T20:47:16.233362900+01:00</code></pre></section><section id="_java_time_offsettime"><h2>java.time.OffsetTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var offsetTime = OffsetTime.now();
+offsetTime.toString();
+// 20:47:16.234362400+01:00</code></pre></section><section id="_java_time_zoneddatetime"><h2>java.time.ZonedDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var zonedDateTime = ZonedDateTime.now();
+zonedDateTime.toString();
+// 2019-12-04T20:47:16.236364500+01:00[Europe/Berlin]</code></pre></section></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;
