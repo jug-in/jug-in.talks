@@ -15,6 +15,14 @@
     font-family: "IBM Plex Mono";
 }
 
+.hljs {
+    background-color: transparent;
+}
+
+.hljs-comment {
+    color: darkolivegreen;
+}
+
 #footer-left {
     position: fixed;
     left: 1vh;

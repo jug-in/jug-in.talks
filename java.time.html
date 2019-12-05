@@ -100,8 +100,17 @@ Zone	Europe/Berlin	0:53:28 -	LMT	1893 Apr
 # Source for the time in Büsingen 1980:
 # http://www.srf.ch/player/video?id=c012c029-03b7-4c2b-9164-aa5902cd58d3
 
-Link	Europe/Zurich	Europe/Busingen</code></pre></section></section>
-<section><section id="_java_8"><h2>Java 8</h2><div class="paragraph"><p>aber Rettung naht&#8230;&#8203;</p></div></section><section id="_java_time_instant"><h2>java.time.Instant</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var instant = Instant.now();
+Link	Europe/Zurich	Europe/Busingen</code></pre></section><section id="_java_zeitzonen"><h2>Java Zeitzonen</h2><div class="paragraph"><p>In der JRE enthalten:</p></div>
+<pre class="highlight listingblock"><code data-noescape class="shell language-shell">$JAVA_HOME/lib/tzdb.dat
+$JAVA_HOME/lib/tzmappings</code></pre></section><section id="_java_laufzeit_umgebung"><h2>Java Laufzeit Umgebung</h2><div class="paragraph"><p>System Umgebung (System.getProperties())</p></div>
+<pre class="highlight listingblock"><code data-noescape class="text language-text">user.variant:
+user.timezone:
+user.country: DE
+user.language: de</code></pre>
+<div class="paragraph"><p>Benutzer Eigenschaften (System.getenv())</p></div>
+<pre class="highlight listingblock"><code data-noescape class="text language-text">TZ: Europe/Berlin
+LANG: de_DE.UTF-8</code></pre></section></section>
+<section><section id="_java_8_jsr_310"><h2>Java 8: JSR 310</h2><div class="paragraph"><p>aber Rettung naht&#8230;&#8203;</p></div></section><section id="_java_time_instant"><h2>java.time.Instant</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var instant = Instant.now();
 instant.toString();
 // 2019-12-04T19:47:16.090017700Z</code></pre></section><section id="_java_time_localdate"><h2>java.time.LocalDate</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDate = LocalDate.now();
 localDate.toString(); // 2019-12-04</code></pre></section><section id="_java_time_localdatetime"><h2>java.time.LocalDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDateTime = LocalDateTime.now();
@@ -113,7 +122,44 @@ offsetDateTime.toString();
 offsetTime.toString();
 // 20:47:16.234362400+01:00</code></pre></section><section id="_java_time_zoneddatetime"><h2>java.time.ZonedDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var zonedDateTime = ZonedDateTime.now();
 zonedDateTime.toString();
-// 2019-12-04T20:47:16.236364500+01:00[Europe/Berlin]</code></pre></section></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+// 2019-12-04T20:47:16.236364500+01:00[Europe/Berlin]</code></pre></section></section>
+<section><section id="_rausgeben_und_einlesen"><h2>Rausgeben und Einlesen</h2><div class="paragraph"><p>Standards</p></div><pre class="highlight listingblock"><code data-noescape class="java language-java">TemporalAccessor ta = Instant.now();
+var text = DateTimeFormatter.ISO_INSTANT.format(ta);
+// 2019-12-05T20:28:37.257047300Z
+ta = DateTimeFormatter.ISO_INSTANT.parse(text);
+
+// DateTimeFormatter.BASIC_ISO_DATE
+// DateTimeFormatter.ISO_WEEK_DATE
+// DateTimeFormatter.RFC_1123_DATE_TIME</code></pre></section><section id="_benutzerdefiniert"><h2>Benutzerdefiniert</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">// import static java.time.temporal.ChronoField.*;
+var dtf = new DateTimeFormatterBuilder()
+        .parseCaseInsensitive()
+        .appendValue(HOUR_OF_DAY, 2).appendLiteral(":")
+        .appendValue(MINUTE_OF_HOUR, 2)
+        .appendLiteral(" Uhr am ")
+        .appendValue(DAY_OF_MONTH, 2).appendLiteral('.')
+        .appendValue(MONTH_OF_YEAR, 2).appendLiteral('.')
+        .appendValue(YEAR, 4).toFormatter();
+dtf.format(LocalDateTime.now());
+// 22:05 Uhr am 05.12.2019
+
+dtf.parse("18:30 uhr am 10.12.2019");</code></pre></section><section id="_json_mapping"><h2>JSON Mapping</h2><div class="paragraph"><p>Jackson</p></div>
+<pre class="highlight listingblock"><code data-noescape class="java language-java">new ObjectMapper()
+    .registerModule(new JavaTimeModule());</code></pre>
+<div class="paragraph"><p>Gson</p></div>
+<pre class="highlight listingblock"><code data-noescape class="java language-java">new GsonBuilder()
+    .registerTypeAdapterFactory(
+		new GsonJava8TypeAdapterFactory()
+	).create()</code></pre></section></section>
+<section><section id="_zeitreisen_rechnen"><h2>Zeitreisen / -rechnen</h2><div class="paragraph"><p>Grundrechenarten</p></div><pre class="highlight listingblock"><code data-noescape class="java language-java">var now = LocalDateTime.now();
+var nextWeek = now.plusDays(7); // Immutable
+var yesterday = now.minusHours(24);</code></pre></section><section id="_dauer_und_perioden"><h2>Dauer und Perioden</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var duration = Duration.ofDays(5).plus(Duration.ofHours(2));
+var sometimes = Instant.now().plus(duration);
+sometimes.isAfter(Instant.now());
+Duration.between(Instant.now(), sometimes);
+// PT121H59M59.9990012S
+
+Period.between(LocalDate.now(), LocalDate.of(2019, 12, 24));
+// P19D</code></pre></section></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;
