@@ -159,7 +159,29 @@ Duration.between(Instant.now(), sometimes);
 // PT121H59M59.9990012S
 
 Period.between(LocalDate.now(), LocalDate.of(2019, 12, 24));
-// P19D</code></pre></section></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+// P19D</code></pre></section></section>
+<section><section id="_zeitzonentreue"><h2>Zeitzonentreue</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var inSixMonth = Period.ofMonths(6);
+
+var odtNow = OffsetDateTime.now();
+// 2019-12-06T20:39:54.717348800+01:00
+
+odtNow.plus(inSixMonth).toString();
+// 2020-06-06T20:39:54.717348800+01:00</code></pre><div class="paragraph fragment"><p>💩</p></div></section><section id="_und_jetzt_richtig"><h2>und jetzt richtig</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var inSixMonth = Period.ofMonths(6);
+
+var zdt = ZonedDateTime.now();
+zdt.toOffsetDateTime().toString();
+// 2019-12-06T20:50:36.461772200+01:00
+
+zdt.plus(inSixMonth).toOffsetDateTime();
+// 2020-06-06T20:50:36.461772200+02:00</code></pre>
+<div class="paragraph fragment"><p>📅</p></div></section><section id="_konvertieren"><h2>Konvertieren</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var instant = Instant.now();
+ZonedDateTime zdt = instant.atZone(ZoneId.of("Europe/Berlin"));
+LocalDateTime ldt = zdt.toLocalDateTime();
+OffsetDateTime odt = ldt.atOffset(ZoneOffset.ofHours(4));
+zdt = odt.atZoneSameInstant(ZoneId.systemDefault());
+zdt = odt.atZoneSimilarLocal(ZoneId.systemDefault());
+zdt.toInstant();</code></pre>
+<div class="paragraph fragment"><p>🧮</p></div></section></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;

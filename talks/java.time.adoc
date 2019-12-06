@@ -205,5 +205,37 @@ include::{src}/Calc.java[tag=plusMinus]
 include::{src}/Calc.java[tag=advanced]
 ----
 
-=== Zeitzonentreue
+== Zeitzonentreue
 
+[source,java,indent=0]
+----
+include::{src}/Calc.java[tag=betweenOffset]
+----
+
+[.fragment]
+💩
+
+=== und jetzt richtig
+
+[source,java,indent=0]
+----
+include::{src}/Calc.java[tag=zonedOffset]
+----
+
+[.fragment]
+📅
+
+=== Konvertieren
+
+[source,java,indent=0]
+----
+include::{src}/Calc.java[tag=converting]
+----
+
+[.fragment]
+🧮
+
+== Resümee
+
+// wofür was verwenden
+// TODO: Erläuterung der jsr 310 typen
