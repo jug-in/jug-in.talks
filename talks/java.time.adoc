@@ -107,13 +107,6 @@ include::{src}/UserProperties.java[tag=sysenv]
 
 aber Rettung naht...
 
-=== java.time.Instant
-
-[source,java,indent=0]
-----
-include::{src}/JavaTime.java[tag=instant]
-----
-
 === java.time.LocalDate
 
 [source,java,indent=0]
@@ -121,12 +114,8 @@ include::{src}/JavaTime.java[tag=instant]
 include::{src}/JavaTime.java[tag=localDate]
 ----
 
-=== java.time.LocalDateTime
-
-[source,java,indent=0]
-----
-include::{src}/JavaTime.java[tag=localDateTime]
-----
+[.fragment]
+Ein Tag. Irgendwo. Irgendwann.
 
 === java.time.LocalTime
 
@@ -135,12 +124,18 @@ include::{src}/JavaTime.java[tag=localDateTime]
 include::{src}/JavaTime.java[tag=localTime]
 ----
 
-=== java.time.OffsetDateTime
+[.fragment]
+Ortszeit. Zeitanzeige der Uhr.
+
+=== java.time.LocalDateTime
 
 [source,java,indent=0]
 ----
-include::{src}/JavaTime.java[tag=offsetDateTime]
+include::{src}/JavaTime.java[tag=localDateTime]
 ----
+
+[.fragment]
+Datum und Zeit zusammen.
 
 === java.time.OffsetTime
 
@@ -149,12 +144,38 @@ include::{src}/JavaTime.java[tag=offsetDateTime]
 include::{src}/JavaTime.java[tag=offsetTime]
 ----
 
+[.fragment]
+Ortszeit inklusive Stundenversatz von Greenwich.
+
+=== java.time.OffsetDateTime
+
+[source,java,indent=0]
+----
+include::{src}/JavaTime.java[tag=offsetDateTime]
+----
+
+[.fragment]
+VersatzDatumZeit.
+
 === java.time.ZonedDateTime
 
 [source,java,indent=0]
 ----
 include::{src}/JavaTime.java[tag=zonedDateTime]
 ----
+
+[.fragment]
+Volles Programm, Datum und Zeit, Offset und Zeitzone.
+
+=== java.time.Instant
+
+[source,java,indent=0]
+----
+include::{src}/JavaTime.java[tag=instant]
+----
+
+[.fragment]
+Internetzeit. UTC. GMT.
 
 == Rausgeben und Einlesen
 
@@ -237,5 +258,12 @@ include::{src}/Calc.java[tag=converting]
 
 == Resümee
 
-// wofür was verwenden
-// TODO: Erläuterung der jsr 310 typen
+[.step]
+* Konstanter Ort: Local[Date]Time
+* Ortsübergreifende Zeitpunktbetrachtung (API): 
+  ** Instant
+  ** Offset[Date]Time
+  ** ZonedDateTime
+* Speichern / Rechnen:  
+  ** Instant
+  ** ZonedDateTime

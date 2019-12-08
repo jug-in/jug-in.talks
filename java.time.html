@@ -43,7 +43,7 @@ date.setTime(1231211251L); // Mutable!
 // + round about 350 @Deprecated Methods</code></pre>
 <div class="paragraph fragment"><p>🤮</p></div></section><section id="_java_util_calendar"><h2>java.util.Calendar</h2><div class="paragraph"><p>Ortsgebundene Zeit, über java.util.Date gestülpt</p></div>
 <pre class="highlight listingblock"><code data-noescape class="java language-java">var cal = Calendar.getInstance(TimeZone.getDefault());
-/* Interface thate uses many -Duser.* properties for
+/* Interface that uses many -Duser.* properties for
  * selecting an implementation out of e.g.:
  * GregorianCalendar,
  * BuddhistCalendar or
@@ -110,19 +110,26 @@ user.language: de</code></pre>
 <div class="paragraph"><p>Benutzer Eigenschaften (System.getenv())</p></div>
 <pre class="highlight listingblock"><code data-noescape class="text language-text">TZ: Europe/Berlin
 LANG: de_DE.UTF-8</code></pre></section></section>
-<section><section id="_java_8_jsr_310"><h2>Java 8: JSR 310</h2><div class="paragraph"><p>aber Rettung naht&#8230;&#8203;</p></div></section><section id="_java_time_instant"><h2>java.time.Instant</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var instant = Instant.now();
-instant.toString();
-// 2019-12-04T19:47:16.090017700Z</code></pre></section><section id="_java_time_localdate"><h2>java.time.LocalDate</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDate = LocalDate.now();
-localDate.toString(); // 2019-12-04</code></pre></section><section id="_java_time_localdatetime"><h2>java.time.LocalDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDateTime = LocalDateTime.now();
+<section><section id="_java_8_jsr_310"><h2>Java 8: JSR 310</h2><div class="paragraph"><p>aber Rettung naht&#8230;&#8203;</p></div></section><section id="_java_time_localdate"><h2>java.time.LocalDate</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDate = LocalDate.now();
+localDate.toString(); // 2019-12-04</code></pre>
+<div class="paragraph fragment"><p>Ein Tag. Irgendwo. Irgendwann.</p></div></section><section id="_java_time_localtime"><h2>java.time.LocalTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localTime = LocalTime.now();
+localTime.toString(); // 20:47:16.232363100</code></pre>
+<div class="paragraph fragment"><p>Ortszeit. Zeitanzeige der Uhr.</p></div></section><section id="_java_time_localdatetime"><h2>java.time.LocalDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localDateTime = LocalDateTime.now();
 localDateTime.toString();
-// 2019-12-04T20:47:16.231363900</code></pre></section><section id="_java_time_localtime"><h2>java.time.LocalTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var localTime = LocalTime.now();
-localTime.toString(); // 20:47:16.232363100</code></pre></section><section id="_java_time_offsetdatetime"><h2>java.time.OffsetDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var offsetDateTime = OffsetDateTime.now();
-offsetDateTime.toString();
-// 2019-12-04T20:47:16.233362900+01:00</code></pre></section><section id="_java_time_offsettime"><h2>java.time.OffsetTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var offsetTime = OffsetTime.now();
+// 2019-12-04T20:47:16.231363900</code></pre>
+<div class="paragraph fragment"><p>Datum und Zeit zusammen.</p></div></section><section id="_java_time_offsettime"><h2>java.time.OffsetTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var offsetTime = OffsetTime.now();
 offsetTime.toString();
-// 20:47:16.234362400+01:00</code></pre></section><section id="_java_time_zoneddatetime"><h2>java.time.ZonedDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var zonedDateTime = ZonedDateTime.now();
+// 20:47:16.234362400+01:00</code></pre>
+<div class="paragraph fragment"><p>Ortszeit inklusive Stundenversatz von Greenwich.</p></div></section><section id="_java_time_offsetdatetime"><h2>java.time.OffsetDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var offsetDateTime = OffsetDateTime.now();
+offsetDateTime.toString();
+// 2019-12-04T20:47:16.233362900+01:00</code></pre>
+<div class="paragraph fragment"><p>VersatzDatumZeit.</p></div></section><section id="_java_time_zoneddatetime"><h2>java.time.ZonedDateTime</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var zonedDateTime = ZonedDateTime.now();
 zonedDateTime.toString();
-// 2019-12-04T20:47:16.236364500+01:00[Europe/Berlin]</code></pre></section></section>
+// 2019-12-04T20:47:16.236364500+01:00[Europe/Berlin]</code></pre>
+<div class="paragraph fragment"><p>Volles Programm, Datum und Zeit, Offset und Zeitzone.</p></div></section><section id="_java_time_instant"><h2>java.time.Instant</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var instant = Instant.now();
+instant.toString();
+// 2019-12-04T19:47:16.090017700Z</code></pre>
+<div class="paragraph fragment"><p>Internetzeit. UTC. GMT.</p></div></section></section>
 <section><section id="_rausgeben_und_einlesen"><h2>Rausgeben und Einlesen</h2><div class="paragraph"><p>Standards</p></div><pre class="highlight listingblock"><code data-noescape class="java language-java">TemporalAccessor ta = Instant.now();
 var text = DateTimeFormatter.ISO_INSTANT.format(ta);
 // 2019-12-05T20:28:37.257047300Z
@@ -160,19 +167,19 @@ Duration.between(Instant.now(), sometimes);
 
 Period.between(LocalDate.now(), LocalDate.of(2019, 12, 24));
 // P19D</code></pre></section></section>
-<section><section id="_zeitzonentreue"><h2>Zeitzonentreue</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var inSixMonth = Period.ofMonths(6);
+<section><section id="_zeitzonentreue"><h2>Zeitzonentreue</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var sixMonth = Period.ofMonths(6);
 
 var odtNow = OffsetDateTime.now();
 // 2019-12-06T20:39:54.717348800+01:00
 
-odtNow.plus(inSixMonth).toString();
-// 2020-06-06T20:39:54.717348800+01:00</code></pre><div class="paragraph fragment"><p>💩</p></div></section><section id="_und_jetzt_richtig"><h2>und jetzt richtig</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var inSixMonth = Period.ofMonths(6);
+odtNow.plus(sixMonth).toString();
+// 2020-06-06T20:39:54.717348800+01:00</code></pre><div class="paragraph fragment"><p>💩</p></div></section><section id="_und_jetzt_richtig"><h2>und jetzt richtig</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var sixMonth = Period.ofMonths(6);
 
 var zdt = ZonedDateTime.now();
 zdt.toOffsetDateTime().toString();
 // 2019-12-06T20:50:36.461772200+01:00
 
-zdt.plus(inSixMonth).toOffsetDateTime();
+zdt.plus(sixMonth).toOffsetDateTime();
 // 2020-06-06T20:50:36.461772200+02:00</code></pre>
 <div class="paragraph fragment"><p>📅</p></div></section><section id="_konvertieren"><h2>Konvertieren</h2><pre class="highlight listingblock"><code data-noescape class="java language-java">var instant = Instant.now();
 ZonedDateTime zdt = instant.atZone(ZoneId.of("Europe/Berlin"));
@@ -181,7 +188,8 @@ OffsetDateTime odt = ldt.atOffset(ZoneOffset.ofHours(4));
 zdt = odt.atZoneSameInstant(ZoneId.systemDefault());
 zdt = odt.atZoneSimilarLocal(ZoneId.systemDefault());
 zdt.toInstant();</code></pre>
-<div class="paragraph fragment"><p>🧮</p></div></section></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+<div class="paragraph fragment"><p>🧮</p></div></section></section>
+<section id="_resümee"><h2>Resümee</h2><div class="ulist step"><ul><li class="fragment"><p>Konstanter Ort: Local[Date]Time</p></li><li class="fragment"><p>Ortsübergreifende Zeitpunktbetrachtung (API):</p><div class="ulist"><ul><li><p>Instant</p></li><li><p>Offset[Date]Time</p></li><li><p>ZonedDateTime</p></li></ul></div></li><li class="fragment"><p>Speichern / Rechnen:</p><div class="ulist"><ul><li><p>Instant</p></li><li><p>ZonedDateTime</p></li></ul></div></li></ul></div></section></div></div><script src="node_modules/reveal.js/lib/js/head.min.js"></script><script src="node_modules/reveal.js/js/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;

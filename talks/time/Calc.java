@@ -33,25 +33,25 @@ public class Calc {
 
     void betweenOffset() {
         // tag::betweenOffset[]
-        var inSixMonth = Period.ofMonths(6);
+        var sixMonth = Period.ofMonths(6);
 
         var odtNow = OffsetDateTime.now();
         // 2019-12-06T20:39:54.717348800+01:00
 
-        odtNow.plus(inSixMonth).toString();
+        odtNow.plus(sixMonth).toString();
         // 2020-06-06T20:39:54.717348800+01:00
         // end::betweenOffset[]
     }
 
     void zonedOffset() {
         // tag::zonedOffset[]
-        var inSixMonth = Period.ofMonths(6);
+        var sixMonth = Period.ofMonths(6);
 
         var zdt = ZonedDateTime.now();
         zdt.toOffsetDateTime().toString();
         // 2019-12-06T20:50:36.461772200+01:00
 
-        zdt.plus(inSixMonth).toOffsetDateTime();
+        zdt.plus(sixMonth).toOffsetDateTime();
         // 2020-06-06T20:50:36.461772200+02:00
         // end::zonedOffset[]
     }

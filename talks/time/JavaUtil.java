@@ -16,7 +16,7 @@ public class JavaUtil {
     void calendar() {
         // tag::calendar[]
         var cal = Calendar.getInstance(TimeZone.getDefault());
-        /* Interface thate uses many -Duser.* properties for
+        /* Interface that uses many -Duser.* properties for
          * selecting an implementation out of e.g.:
          * GregorianCalendar, 
          * BuddhistCalendar or 
