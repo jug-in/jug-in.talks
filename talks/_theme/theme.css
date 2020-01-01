@@ -5,6 +5,8 @@
     font-family: 'Boogaloo';
     text-transform: none;
     letter-spacing: normal;
+    white-space: pre-wrap;
+    word-wrap: unset;
 }
 
 .reveal div {
