@@ -1,0 +1,21 @@
+:title: IntelliJ IDEA 101
+include::_theme/theme.adoc[]
+:hide-uri-scheme:
+
+_Tips and Tricks for more productivity_
+
+== Find the tips and tricks on
+
+https://github.com/tungbeier/intellij-101
+
+== Youtube videos
+
+https://www.youtube.com/watch?v=9AMcN-wkspU&t=1792s[More IntelliJ IDEA Tips and Tricks by Trisha Gee]
+
+https://www.youtube.com/watch?v=CmPJzEqFS4s[Be More Productive With IntelliJ by Trisha Gee]
+
+https://www.youtube.com/watch?v=bFcaO1pXzws[IDEA Tips and Tricks by Hadi Hariri]
+
+https://www.youtube.com/watch?v=eq3KiAH4IBI&t=13s[42 IntelliJ IDEA Tips and Tricks]
+
+https://www.youtube.com/watch?v=MZge92bbU7E[Zen Habits of using IntelliJ IDEA by Victor Kropp]
