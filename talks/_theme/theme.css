@@ -1,16 +1,29 @@
 @import "../../node_modules/highlight.js/styles/github.css";
 @import "fonts.css";
 
-.reveal h1, .reveal h2, .reveal  h3, .reveal h4, .reveal h5, .reveal h6 {
-    font-family: 'Boogaloo';
+#jug-title, .footer-center, .reveal a {
+    color: lightskyblue;
+    margin-top: 3vh;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5 {
+    text-align: left;
     text-transform: none;
     letter-spacing: normal;
     white-space: pre-wrap;
     word-wrap: unset;
 }
 
-.reveal div {
-    font-family: "Averia Serif Libre";
+.title h1, .title h2 {
+    text-align: center;
+}
+
+.reveal {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .reveal code, .reveal pre {
@@ -25,22 +38,49 @@
     color: darkolivegreen;
 }
 
-#footer-left {
+.hidden {
+    display: none !important;
+}
+
+.footer, .reveal .slide-number {
+    font-size: 35% !important;
+}
+
+.footer-left {
     position: fixed;
     left: 1vh;
     bottom: 1vh;
     text-align: left;
 }
 
-#footer-logo {
-    width: 13vh;
-    height: 13vh;
+.footer-left img {
+    width: 12vh;
+    height: 12vh;
+}
+
+.footer-left.title {
+    left: -30vh;
+    bottom: -30vh;
+}
+
+.footer-left.title img {
+    width: 120vh;
+    height: 120vh;
+    opacity: 0.05;
+}
+
+.footer-center {
+    position: fixed;
+    bottom: 2vh;
+    width: 100%;
+    text-align: center;
+    white-space: pre;
 }
 
 .reveal .slide-number {
     background-color: transparent;
-    color: rgb(59, 117, 158);
-    font-family: "IBM Plex Mono";
+    color: lightskyblue;
+    bottom: 1vh;
 }
 
 .quoteblock .attribution {
@@ -68,7 +108,32 @@
     overflow: hidden;
 }
 
+.reveal section img {
+    border: 0;
+    box-shadow: none;
+}
+
 .type h2, .type h3 {
     text-transform: none;
     white-space: nowrap;
+}
+
+#_about {
+    display: none;
+}
+
+#_about ul {
+    list-style-type: none;
+}
+
+#_about p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#_about div {
+    font-size: 60% !important;
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
