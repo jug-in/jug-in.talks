@@ -13,7 +13,7 @@ b.conum *{color:inherit!important}
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? "node_modules/reveal.js/css/print/pdf.css" : "node_modules/reveal.js/css/print/paper.css";
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="node_modules/reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="talks/_theme/theme.css"></head><body><div class="reveal"><div class="slides"><section class="title center" data-state="title"><h1>java.time</h1><div class="preamble"><script type="text/javascript">
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="node_modules/reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="talks/_theme/theme.css"></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title" data-background-image="talks/_theme/bg-title.png"><h1>java.time</h1><div class="preamble"><script type="text/javascript">
     // Updates the footer according to the current slide
     function updateFooter() {
         currentSlide = document.querySelector(".present:not(.stack)");
@@ -42,7 +42,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
         ourDiv.setAttribute("id", "jug-title");
         ourDiv.appendChild(ourText);
         sectionTitle = document.querySelector("body div.reveal div.slides section.title");
-        sectionTitle.insertBefore(ourDiv, null);
+        sectionTitle.insertBefore(ourDiv, sectionTitle.childNodes[0]);
 
         // Move footer to correct position
         revealDiv = document.querySelector("body div.reveal")

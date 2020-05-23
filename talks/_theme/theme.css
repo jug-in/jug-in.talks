@@ -1,9 +1,32 @@
 @import "../../node_modules/highlight.js/styles/github.css";
 @import "fonts.css";
 
-#jug-title, .footer-center, .reveal a {
-    color: lightskyblue;
+.reveal a {
+    color: #008dc9;
     margin-top: 3vh;
+}
+
+.reveal a:hover {
+    color: #99d2eb;
+}
+
+#jug-title, .footer-center, .footer-center a {
+    color: #99d2eb;
+    margin-top: 3vh;
+}
+
+.footer-center a:hover {
+    color: #008dc9;
+}
+
+#jug-title {
+    text-align: right;
+}
+
+body {
+    background: url("bg-slides.png");
+    background-position: right;
+    background-size: 110%;
 }
 
 .reveal h1,
@@ -18,8 +41,19 @@
     word-wrap: unset;
 }
 
+section.title {
+    width: 70% !important;
+    right: 0;
+}
+
 .title h1, .title h2 {
-    text-align: center;
+    text-align: right;
+    color: white;
+}
+
+.title .preamble {
+    text-align: right;
+    color: white;
 }
 
 .reveal {
@@ -38,6 +72,10 @@
     color: darkolivegreen;
 }
 
+.reveal .controls {
+    color: white;
+}
+
 .hidden {
     display: none !important;
 }
@@ -48,25 +86,26 @@
 
 .footer-left {
     position: fixed;
-    left: 1vh;
-    bottom: 1vh;
     text-align: left;
-}
-
-.footer-left img {
-    width: 12vh;
-    height: 12vh;
-}
-
-.footer-left.title {
     left: -30vh;
     bottom: -30vh;
 }
 
-.footer-left.title img {
+.footer-left.title {
+    left: 0vh;
+    bottom: 0vh;
+}
+
+.footer-left img {
     width: 120vh;
     height: 120vh;
-    opacity: 0.05;
+    opacity: 0.02;
+}
+
+.footer-left.title img {
+    width: 60vh;
+    height: 60vh;
+    opacity: 1;
 }
 
 .footer-center {
@@ -79,7 +118,7 @@
 
 .reveal .slide-number {
     background-color: transparent;
-    color: lightskyblue;
+    color: white;
     bottom: 1vh;
 }
 

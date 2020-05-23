@@ -12,8 +12,9 @@
 :revealjs_fragmentInURL: true
 :source-highlighter: highlightjs
 
+:title-slide-background-image: talks/_theme/bg-title.png
+
 = {title}
-:role: center
 
 :!role:
 
@@ -48,7 +49,7 @@
         ourDiv.setAttribute("id", "jug-title");
         ourDiv.appendChild(ourText);
         sectionTitle = document.querySelector("body div.reveal div.slides section.title");
-        sectionTitle.insertBefore(ourDiv, null);
+        sectionTitle.insertBefore(ourDiv, sectionTitle.childNodes[0]);
 
         // Move footer to correct position
         revealDiv = document.querySelector("body div.reveal")
