@@ -21,7 +21,7 @@ node_modules/highlight.js/styles/*
 !node_modules/reveal.js/css/reveal.scss
 !node_modules/reveal.js/css/reveal.css
 !node_modules/reveal.js/css/theme/
-!node_modules/reveal.js/css/theme/sky.css
+!node_modules/reveal.js/css/theme/white.css
 !node_modules/reveal.js/css/print/
 !node_modules/highlight.js/
 !node_modules/highlight.js/styles/
