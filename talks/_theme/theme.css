@@ -1,16 +1,63 @@
 @import "../../node_modules/highlight.js/styles/github.css";
 @import "fonts.css";
 
-.reveal h1, .reveal h2, .reveal  h3, .reveal h4, .reveal h5, .reveal h6 {
-    font-family: 'Boogaloo';
+.reveal a {
+    color: #008dc9;
+    margin-top: 3vh;
+}
+
+.reveal a:hover {
+    color: #99d2eb;
+}
+
+#jug-title, .footer-center, .footer-center a {
+    color: #99d2eb;
+    margin-top: 3vh;
+}
+
+.footer-center a:hover {
+    color: #008dc9;
+}
+
+#jug-title {
+    text-align: right;
+}
+
+body {
+    background: url("bg-slides.png");
+    background-position: right;
+    background-size: 110%;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5 {
+    text-align: left;
     text-transform: none;
     letter-spacing: normal;
     white-space: pre-wrap;
     word-wrap: unset;
 }
 
-.reveal div {
-    font-family: "Averia Serif Libre";
+section.title {
+    width: 70% !important;
+    right: 0;
+}
+
+.title h1, .title h2 {
+    text-align: right;
+    color: white;
+}
+
+.title .preamble {
+    text-align: right;
+    color: white;
+}
+
+.reveal {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .reveal code, .reveal pre {
@@ -25,22 +72,54 @@
     color: darkolivegreen;
 }
 
-#footer-left {
-    position: fixed;
-    left: 1vh;
-    bottom: 1vh;
-    text-align: left;
+.reveal .controls {
+    color: white;
 }
 
-#footer-logo {
-    width: 13vh;
-    height: 13vh;
+.hidden {
+    display: none !important;
+}
+
+.footer, .reveal .slide-number {
+    font-size: 35% !important;
+}
+
+.footer-left {
+    position: fixed;
+    text-align: left;
+    left: -30vh;
+    bottom: -30vh;
+}
+
+.footer-left.title {
+    left: 0vh;
+    bottom: 0vh;
+}
+
+.footer-left img {
+    width: 120vh;
+    height: 120vh;
+    opacity: 0.02;
+}
+
+.footer-left.title img {
+    width: 60vh;
+    height: 60vh;
+    opacity: 1;
+}
+
+.footer-center {
+    position: fixed;
+    bottom: 2vh;
+    width: 100%;
+    text-align: center;
+    white-space: pre;
 }
 
 .reveal .slide-number {
     background-color: transparent;
-    color: rgb(59, 117, 158);
-    font-family: "IBM Plex Mono";
+    color: white;
+    bottom: 1vh;
 }
 
 .quoteblock .attribution {
@@ -68,7 +147,32 @@
     overflow: hidden;
 }
 
+.reveal section img {
+    border: 0;
+    box-shadow: none;
+}
+
 .type h2, .type h3 {
     text-transform: none;
     white-space: nowrap;
+}
+
+#_about {
+    display: none;
+}
+
+#_about ul {
+    list-style-type: none;
+}
+
+#_about p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#_about div {
+    font-size: 60% !important;
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
