@@ -1,4 +1,5 @@
 :title: JDK 12
+//:author: Florian Heubeck
 include::_theme/theme.adoc[]
 :imagesdir: talks/jdk12/img
 

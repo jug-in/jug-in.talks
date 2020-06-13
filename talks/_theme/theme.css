@@ -21,6 +21,7 @@
 
 #jug-title {
     text-align: right;
+    margin-bottom: 3vh;
 }
 
 body {
@@ -122,6 +123,21 @@ section.title {
     bottom: 1vh;
 }
 
+.quoteblock blockquote:before {
+    content: "\201c";
+    float: left;
+    font-size: 2.75em;
+    font-weight: bold;
+    line-height: 0.6em;
+    margin-left: -0.6em;
+    color: #008dc9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.quoteblock blockquote {
+    box-shadow: none;
+}
+
 .quoteblock .attribution {
     margin-top: 0.5em;
     margin-right: 0.5ex;
@@ -129,7 +145,7 @@ section.title {
 }
 
 .reveal div.attribution.paragraph, .reveal div.attribution.paragraph p {
-    font-size: 6pt;
+    font-size: 9pt;
     position:absolute;
     bottom:0;
     left:0;
@@ -145,6 +161,7 @@ section.title {
     margin-bottom: 10px;
     width: 100%;
     overflow: hidden;
+    max-height: 550px;
 }
 
 .reveal section img {
@@ -175,4 +192,36 @@ section.title {
     text-align: left;
     margin-top: 30px;
     margin-bottom: 50px;
+}
+
+.nofooter h2 {
+    color: #000;
+    text-shadow: 2px 2px 0 #fff,
+    -2px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px 2px 0 #fff,
+    0px 2px 0 #fff,
+    2px 0px 0 #fff,
+    0px -2px 0 #fff,
+    -2px 0px 0 #fff,
+    2px 2px 5px #fff;
+}
+
+.reveal .nofooter {
+    height: 100%;
+}
+
+.openblock div {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.split-left {
+    width: 50%;
+    float: left;
+}
+
+.split-right {
+    width: 50%;
+    float: right;
 }

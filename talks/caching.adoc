@@ -1,0 +1,326 @@
+:title: Caching
+//:author: Bernd Stübinger
+//:duration: 45min
+include::_theme/theme.adoc[]
+:imagesdir: talks/caching
+:src: caching
+
+_How to not shoot yourself in the foot_
+
+[%notitle,role="center"]
+== Quote
+
+[,"Phil Karlton, Netscape"]
+""
+There are only two hard things in Computer Science: cache invalidation and naming things.
+""
+
+== Was ist Caching?
+
+[%step]
+[.preload]
+* Ich halte eine lokale Kopie von Daten _für eine begrenzte Zeit_
+// Daten sind aufwendig zu beschaffen und ändern sich eher selten.
++
+-> Ich tausche Speicher gegen $Vorteile
+* $Vorteile beinhalten:
+[%step]
+** Bessere Performance: Langsame Festplatten-, Netzwerk-, Datenbank-Zugriffe reduzieren; aufwendige (Neu-)Berechnungen gleicher Werte vermeiden
+** Lastvermeidung: Nicht/schlecht skalierbares (Legacy-)Backend schützen; Aufrufe kostenpflichtiger externer APIs minimieren
+// Caches sind in der Regel leichter skalierbar als der typische Legacy-Monolith
+** Fehlertoleranz: Weiterarbeiten können, obwohl ein externes System nicht erreichbar ist
+// -> Resilience
+
+== Rahmenbedingungen
+
+[%step]
+[.preload]
+* Möglichst hohe Cache Hit Rate
++
+-> Anzahl der Anfragen, die aus dem Cache beantwortet werden können
+* Möglichst niedriger Speicherverbrauch
++
+-> Begrenzt durch Kapazität und/oder Kosten
+// Lösung: Neue Einträge ersetzen bestehende (FIFO - First In First Out, LRU - Least Recently Used, LFU - Least Frequently Used)
+// L1-Cache in der CPU ist AFAIK immer noch < 1 MB
+* Möglichst keine Überalterung
++
+-> Aktualisierungen vom Quellsystem mitbekommen
+// Lösung: Einträge werden nur für bestimmte Gültigkeitsdauer gespeichert (TTL - Time to Live)
+
+[role="nofooter"]
+== Cache Stampede
+
+[caption="https://www.flickr.com/photos/dennissylvesterhurd/8981216419/"]
+image::8981216419_1f732d4534_k.jpg[background, size=cover]
+
+== Cache Stampede
+
+[,Wikipedia]
+""
+A cache stampede is a type of cascading failure that can occur when massively parallel computing systems with caching mechanisms come under very high load. This behaviour is sometimes also called dog-piling.
+""
+// Aka: "Thundering Herd"
+
+== Eine typische Implementierung
+
+[source,java,indent=0]
+----
+include::{src}/Caching.java[tag=fetch]
+----
+
+[%step]
+* Einträge werden aus dem Cache geladen
+* Falls Eintrag nicht vorhanden ist (z.B. wegen Überalterung), wird er neu berechnet und im Cache abgelegt
+* Ideale Welt: Auf Einträge im Cache wird gleichverteilt zugegriffen
+* Cache Hit Rate von 80%, 100 Requests pro Sekunde
++
+-> 80 aus dem Cache bedient, 20 neu berechnet
+// Keine Synchonisation
+
+== Es war einmal...
+
+[%step]
+* Situation: Cache mit einem einzigen Eintrag
+* ...der von einem externen System kommt
+* ...für jeden Request gebraucht wird
+* ...und eine TTL von 4 Stunden hat
+* Cache Hit Rate von 100%, 20 Requests pro Sekunde
++
+-> 20 aus dem Cache bedient, 0 an das externe System
+
+[.fragment]
+😎
+
+== ...ein böses Erwachen
+
+image::requests-white-3.png[]
+
+[.fragment]
+😢
+
+== TTL + 1 Sekunde
+
+[%step]
+* 20 Requests pro Sekunde
+* ...stellen fest, dass der Eintrag veraltet ist
+// Und weil völlig isoliert und unabhängig voneinander:
+* ...laden den Eintrag neu vom externen System
++
+-> 20 Requests pro Sekunde an das externe System
+* Ein Request dauert 6 Sekunden
+* 20 Requests pro Sekunde stellen 6 Sekunden lang fest, dass der Eintrag veraltet ist
++
+-> 120 Requests an das externe System
+* Heißt auch: Unter Umständen 120 blockierte Ressourcen (Verbindungen, Threads, ...) und ein überlastetes externes System, längere Antwortzeiten, ...
+// Antworten dauern länger, triggern Retries, überlastete Netzwerke, überlastete Datenbanken, ...
+// -> Congestion Collapse
+
+[role="nofooter"]
+== Congestion Collapse
+
+[caption="https://www.flickr.com/photos/x1brett/2212516746/"]
+
+image::2212516746_11142f0ab6_o.jpg[background, size=cover]
+
+== Was kann man tun?
+
+* Locking
+* Externe Aktualisierung
+* Probabilistic Early Expiration
+
+== Locking
+
+[%step]
+[.preload]
+* Der erste Zugriff sperrt den Eintrag und berechnet ihn neu
+* Alle anderen warten auf die Aktualisierung
+* Nur ein Zugriff an das externe System
+
+=== Implementierung
+
+[source,java,indent=0]
+----
+include::{src}/Caching.java[tag=locking]
+----
+
+[.attribution]
+Avoiding cache stampede at DoorDash:
+https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b
+
+=== Einschränkungen
+
+[%step]
+* Synchronisierung ist komplex
++
+-> Deadlocks, Starvation, ...
+* Zusätzliche Schreib- und Lesezugriffe für den Lock
+* Lock selbst braucht "passende" TTL
++
+-> Weder zu lang noch zu kurz
+* "Alle anderen warten auf die Aktualisierung"
+* Plus: Locking im verteilten System?
++
+-> Netzwerk, Latenz, ...
++
+-> Was, wenn genau der Knoten wegbricht, der gerade den Lock hat?
+
+== Externe Aktualisierung
+
+[%step]
+[.preload]
+* Separater Prozess, der Einträge neu berechnet
++
+-> Daemon Thread, Cronjob, manueller Trigger, ...
+* Einzelne Requests laden nicht mehr nach
+* Nur ein Zugriff an das externe System
+// Vielleicht mit Batch-Fetch sogar noch weniger als mit Locking
+* Ermöglicht zeitgesteuerte Aktualisierung unabhängig von Requests (stündliche Reports, ...)
+
+=== Implementierung
+
+[source,java,indent=0]
+----
+include::{src}/Caching.java[tag=external]
+----
+
+=== Einschränkungen
+
+[%step]
+* Eine Komponente mehr, die betrieben werden will
++
+-> Fallback, wenn der separate Prozess nicht funktioniert
+* Funktioniert nicht "on the fly"
++
+-> Einträge basierend auf beliebigen Nutzereingaben?
+* Typischerweise deutlich höherer Speicherbedarf und unnötige Neuberechnungen
+// Weil alle Einträge im Cache vorgehalten werden müssen und der separate Prozess nicht weiß, was tatsächlich zugegriffen wird
++
+-> Nach welchen Kriterien aktualisieren?
++
+-> 1 Million Artikel, von denen 80% (fast) nie verkauft werden?
+
+// Beides hat sicher Anwendungsfälle:
+// Aktuelle Temperatur immer zur vollen Stunde; alle Preise, weil 100% Resilience
+
+== Probabilistic Early Expiration
+
+[%step]
+[.preload]
+* Einträge aktualisieren, _solange sie noch gültig sind_
+* Der alte Eintrag bleibt im Cache und kann weiter verwendet werden
+* Prinzip: "Verhalte dich so als wäre es Jetzt + X"
++
+-> X wird durch Wahrscheinlichkeitsfunktion zufällig bestimmt
+* Jeder Request hat die Chance, den Eintrag neu zu berechnen; die Wahrscheinlichkeit dafür steigt in Richtung TTL
+* Dank Wahrscheinlichkeitsfunktion auch verteilt ohne Synchronisation und Locking nutzbar
+* Verschiedene Wahrscheinlichkeitsfunktionen möglich
+// Wahrscheinlichkeitsfunktion ist der wichtige Teil
+
+=== Paper
+
+[%step]
+[.preload]
+* "Optimal Probabilistic Cache Stampede Prevention"
++
+Andrea Vattani, Flavio Chierichetti, Keegan Lowenstein
++
+https://cseweb.ucsd.edu/~avattani/papers/cache_stampede.pdf (CC BY-NC-ND 3.0)
+// University of California San Diego
+// CC BY-NC-ND 3.0 (https://creativecommons.org/licenses/by-nc-nd/3.0/)
+* Hier: Wahrscheinlichkeit steigt exponentiell in der Nähe der TTL, TTL wird möglichst gut eingehalten
+* Behauptung: Optimal für alle Anwendungsfälle
+
+[%notitle]
+=== Paper
+
+[.split-left]
+image::paper1.png[]
+
+[.split-right]
+image::paper2.png[]
+
+=== Die Wahrscheinlichkeitsfunktion
+
+--
+delta * beta * ln(random())
+--
+
+[%step]
+* random: Zufallszahl zwischen 0 und 1
+* ln: natürlicher Logarithmus
+* delta: Zeitbedarf für Neuberechnung
+* beta: "Einstellknopf" - empfohlener Standard 1.0
+** > 1.0 bewirkt eher frühere Neuberechnung
+** < 1.0 bewirkt eher spätere (also näher an der tatsächlichen TTL)
+* Unabhängig von konkreter TTL
+
+[%notitle]
+=== Auswirkungen
+
+[.split-left]
+image::b1d10.png[]
+image::b4d10.png[]
+
+[.split-right]
+image::b1d40.png[]
+image::b025d10.png[]
+
+=== Implementierung
+
+[source,java,indent=0]
+----
+include::{src}/Caching.java[tag=xfetch]
+----
+
+=== Implementierungsdetail
+
+[.split-left]
+[%step]
+[.preload]
+* Math.random() liefert [0, 1)
+* ln(0) ist mathematisch nicht definiert, geht gegen -Unendlich
+* Java kann das ab:
++
+[source,java]
+----
+jshell> (long)java.lang.Math.log(0)
+$1 ==> -9223372036854775808
+----
+// https://tryjshell.org/
+
+[.split-right]
+image::ln.png[size=25%, float=right]
+// https://www.desmos.com/calculator
+
+=== Einschränkungen
+
+[%step]
+* Mehr Speicherverbrauch
+// Wir speichern neben dem Eintrag auch noch die Berechnungsdauer und die TTL
+// (Falls das der Cache nicht sowieso schon für uns tut)
+* Wahrscheinlichkeitsfunktion bietet keine Garantien
+[%step]
+** Trotzdem noch mehr als 1 Request gleichzeitig möglich (aber Größe der Stampede deutlich geringer)
+** Theoretisch auch direkt erneute Neuberechnung möglich (aber sehr unwahrscheinlich)
+* Hilft nicht bei leerem Cache
+// Weil: Kein alter Eintrag, und wenn TTL erreicht ist, schlagen doch wieder 100% zu
+//-> Cache "vorwärmen"
+//-> Kombination mit Locking
+
+// == Further Reading
+
+// Doordash:
+// https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b
+
+// YouTube:
+// "A right and creative solution are to introduce a jitter – randomizing (a little) the expiration time for each cache. This solution was introduced by Youtube (This video does not talk only about the Thundering herd problem, and it is a little bit outdated, but it is still relevant)."
+// Jitter - "zufällige TTL zwischen 18 und 30 Stunden statt genau 24 Stunden"
+// https://youtu.be/G-lGCC4KKok?t=1093
+
+// Facebook:
+// "Another excellent resource to learning about how to solve The Thundering Problem in a much more complex scenario, I recommend this short video, from the Facebook Engineering team."
+// https://www.facebook.com/Engineering/videos/10153675295382200/?v=10153675295382200
+
+// RedisConf 2017:
+// https://www.youtube.com/watch?v=1sKn4gWesTw
