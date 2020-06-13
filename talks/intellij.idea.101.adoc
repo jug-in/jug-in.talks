@@ -1,4 +1,5 @@
 :title: IntelliJ IDEA 101
+//:author: Tung Beier
 include::_theme/theme.adoc[]
 :hide-uri-scheme:
 

@@ -1,4 +1,5 @@
 :title: java.time
+//:author: Florian Heubeck
 include::_theme/theme.adoc[]
 :src: time
 
