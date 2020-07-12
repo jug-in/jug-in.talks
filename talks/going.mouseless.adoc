@@ -1,0 +1,172 @@
+:title: Going (almost) mouseless
+//:author: Tung Beier
+include::_theme/theme.adoc[]
+:hide-uri-scheme:
+:imagesdir: talks/going_mouseless
+:src: going_mouseless
+
+_Some tips and tricks for more productivity_
+
+== Why do you want to ditch your mouse?
+
+[%step]
+* "Every second counts"
+* Stay in the "flow"
+* More comfortable
+
+== The points of interest
+
+Browser
+
+Terminal
+
+Intellij
+
+== Browser
+
+[%step]
+* **Ctrl+T** Open new tab
+* **Ctrl+W** Close current tab
+* **Ctrl+Shift+T** Reopen last closed tab
+* **Ctrl+N** Open new browser window
+* **Ctrl+Tab** Switch to next tab
+* **Ctrl+Shift+Tab** Switch to previous tab
+* **Alt+Left Arrow** Back
+* **Alt+Right Arrow** Forward
+* **Space** Scroll down a frame
+* **Shift+Space** Scroll up a frame
+
+== Browser
+
+[%step]
+[.preload]
+* What if I want to click on a link?
+* What if I want to search for a specific tab?
+* Solution: vimium (https://github.com/philc/vimium)
+
+== Browser
+
+image::vimium.png[Vimium,1280,720]
+
+== Browser
+
+image::vimium_f.png[Vimium,1280,720]
+
+== Browser
+
+image::vimium_T.png[Vimium,1280,720]
+
+== Terminal
+
+Fix mistakes in prompt with vi-mode
+
+```sh
+set -o vi # in bashrc
+
+bindkey -v # in zshrc
+
+fish_vi_key_bindings # in .config/fish/config.fish
+```
+
+== Terminal
+
+Fix command with **fc**
+```sh
+fc # to fix the last executed command
+
+fc -l # to list previous commands
+
+fc -l 600 # to fix specific command
+```
+
+== Terminal
+
+image::tmux.png[Vimium,1280,720]
+
+== Terminal
+
+tmux (https://github.com/tmux/tmux/wiki)
+
+```sh
+tmux new -s session-name # start tmux session with a name
+
+Ctrl+b c # create new window
+
+Ctrl+b % # split window horizontally
+
+Ctrl+b " # split window vertically
+
+Ctrl+d # close pane or window
+
+Ctrl+b w # choose a window to open
+
+Ctrl+b d # detach from session
+
+tmux ls # list session
+
+tmux attach -t session-name # attach to session
+```
+
+== Intellij
+
+**Ctrl+Shift+A**: find action
+
+**Ctrl+E**: recent file, window
+
+**Alt+1-9**: open window
+
+**Ctrl+Shift+F12**: hide all window
+
+**Ctrl+N**: search class
+
+**Ctrl+Shift+N**: search file
+
+**Ctrl+Shift+Alt+N**: search symbols
+
+**2xShift**: search everywhere
+
+== Intellij
+
+**Ctrl+Shift+T**: open corresponding test class
+
+**Ctrl+Alt+Left/Right**: go back/forward
+
+**Ctrl+Shift+E**: recent location
+
+**Alt+Insert**: context menu
+
+**Ctrl+Alt+V**: extract
+
+**Ctrl+Shift+Enter**: complete statement
+
+**Alt+/**: hippie completion
+
+**Ctrl+Shift+Space**: smart completion
+
+== Intellij
+
+**Ctrl+F12**: navigate in file
+
+**Ctrl+Y**: delete a line
+
+**Ctrl+D**: duplicate a line
+
+**Ctrl+W**: select code
+
+**Ctrl+Shift+Up/Down**: move code
+
+**Shift+Alt+Up/Down**: move line of code
+
+**Ctrl+Shift+V**: choose content to paste
+
+**Ctrl+Tab**: cycle through editor
+
+== Intellij
+
+**Shift+F6**: rename for anything, that needs to be renamed
+
+**Ctrl+P**: show parameters of a function
+
+**Ctrl+Shift+F**: search in project
+
+**Ctrl+Shift+I**: open quick definition look up
