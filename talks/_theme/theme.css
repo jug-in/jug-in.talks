@@ -225,3 +225,8 @@ section.title {
     width: 50%;
     float: right;
 }
+
+/* uncomment to align the text in the slides
+ .reveal > .slides > section > div, .reveal > .slides > section > section > div, .reveal > .slides > section > pre, .reveal > .slides > section > section > pre {
+    text-align: left;
+}*/
