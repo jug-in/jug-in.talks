@@ -1,0 +1,103 @@
+:title: How to quit vim?
+//:author: Tung Beier
+include::_theme/theme.adoc[]
+:hide-uri-scheme:
+:imagesdir: talks/vim
+:src: vim
+
+_Or how I learn to love Vim_
+
+_and don't want to quit it anymore_
+
+[%notitle]
+== How to quit vim
+
+image::tell-me-how-to-quit.png[700,687]
+
+== What is Vim?
+
+[%step]
+* Modal text editor
+* Focuses on editing rather than writing
+* Available on almost all platform
+* Lightweight and fast
+* Keyboard-driven, mouse-free interface
+
+== Vim's modes
+
+image::vim-modes.png[882,647]
+
+== Command language
+
+[%step]
+* [number] [**command**] [text object or motion]
+[%step]
+** **c**hange
+** **d**elete
+** **y**ank
+
+== Command language
+
+[%step]
+[.preload]
+* [number] [command] [**text object** or motion]
+[%step]
+** **aw** = a word
+** **iw** = a word
+** **at** = a word
+** **it** = a word
+
+== Command language
+
+[%step]
+[.preload]
+* [number] [command] [text object or **motion**]
+[%step]
+** **h/j/k/l** = left/down/up/right
+** **f/F** <char> = find <char>
+** **t/T** <char> = til <char>
+** **w/W** = go to next word
+** **b/B** = go to previous word
+
+== File navigation
+
+image::vim-file-navigation.png[]
+
+== Vim repetition
+
+[%step]
+* dot (".") command repeats the last command
+* recording a sequence of commands
+[%step]
+** q <letter a-z> to start
+** q to stop recording
+** @ <letter> to playback a specific sequence
+** @@ to playback the last recorded sequence
+
+== Vim integration
+
+**IdeaVim** for Intellij IDEA
+
+**Eclim** or **Vrapper** for Eclipse
+
+**Vintage mode** in Sublime
+
+**Plugin** in Atom, VS Code
+
+== Existing Vim
+
+[%step]
+* There are many ways to exit vim:
+[%step]
+** exit an un-edited file **:q**
+** exit without saving **:q!** or **ZQ**
+** save the changes and exit **:wq** or **:x** or **ZZ**
+
+== Existing Vim
+
+image::it-is-that-easy.jpg[]
+
+[%notitle]
+== Thank you
+
+image::thank-you-for-your-attention.jpg[550,575]
