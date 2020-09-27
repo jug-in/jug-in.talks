@@ -5,7 +5,13 @@ const asciidoctor = require('asciidoctor.js')();
 const asciidoctorRevealjs = require('asciidoctor-reveal.js');
 asciidoctorRevealjs.register()
 
-const renderOptions = { safe: 'safe', backend: 'revealjs' };
+const asciidoctorPlantuml = require('asciidoctor-plantuml');
+asciidoctorPlantuml.register(asciidoctor.Extensions);
+
+const registry = asciidoctor.Extensions.create();
+asciidoctorPlantuml.register(registry);
+
+const renderOptions = { safe: 'safe', backend: 'revealjs', extension_registry: registry };
 
 renderAllTalks()
 

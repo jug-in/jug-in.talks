@@ -22,6 +22,9 @@ jobs:
           npm install
           node render-talks.js
 
+          sudo apt-get -y --no-install-recommends install libxml2-utils > /dev/null
+          .github/workflows/create-index-html.sh
+
           git config --local user.email "talks@jug-in.bayern"
           git config --local user.name "yours sincerely CI"
           git add -f *.html
