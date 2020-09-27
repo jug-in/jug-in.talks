@@ -13,4 +13,6 @@ For rendering the Asciidoctor files to reveal.js HTML presentations a Node.js in
 * Render all talks at once: `node render-talks.js`
 * Continuously watch for changes and render on demand: `node render-talks.js watch`
 
+Generated html files are not checked in but rendered and published from the `master` branch by a [GitHub action](.github/workflows/render.yml).
+
 # Don't forget to visit our appointments: https://jug-in.bayern

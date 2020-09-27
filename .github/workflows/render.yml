@@ -1,0 +1,36 @@
+name: Render talks
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync:
+    name: Render talks and publish to GitHub pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+
+      - name: Render talks
+        run: |
+          npm install
+          node render-talks.js
+
+          git config --local user.email "talks@jug-in.bayern"
+          git config --local user.name "yours sincerely CI"
+          git add -f *.html
+          git add -f node_modules/**
+          git commit -m "Rendered talks"
+
+      - name: Refresh latest action branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'gh-pages'
+          force: true

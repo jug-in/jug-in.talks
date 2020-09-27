@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "asciidoctor-reveal.js": "^2.0.0",
-    "highlight.js": "^9.16.2"
+    "asciidoctor-reveal.js": "^2.0.1",
+    "highlight.js": "^9.18.3"
   }
 }
