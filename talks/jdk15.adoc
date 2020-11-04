@@ -1,0 +1,51 @@
+:title: JDK 15
+:author: Jochen Bürkle
+include::_theme/theme.adoc[]
+:imagesdir: talks/jdk15/img
+
+_released 2020-11-10_
+
+== Kapitel
+Add a new garbage collection (GC) algorithm named Shenandoah which reduces GC pause times by doing evacuation work concurrently with the running Java threads. Pause times with Shenandoah are independent of heap size, meaning you will have the same consistent pause times whether your heap is 200 MB or 200 GB.
+
+=== Subkapitel
+oiasdjoiasdjf asdiopjasdf, asdoüijasdkjasd asdfjh
+
+==== SubSubKapitel
+djsfhpsdfjhgsdkf öaksdjhfas asdphas asdojjhbf
+sadjfhasdo oasdfn
+
+=== Sub2
+* abcdjdsf
+* sdaljkfsda
+** sdafjkhasdf
+* dsafj
+* sadflkjhsda sadofbasd
+** asdkjfhasdjf
+*** asdkjfasd
+*** dsafkjhas
+** sadfkjnpi fawein
+* sadfjkb
+
+=== Sub3
+
+[.code][source,java]
+----
+    -XX:+UnlockExperimentalVMOptions
+    -XX:+UseShenandoahGC
+----
+
+[.code]
+----
+public class Java15 {
+    static final int version = 15;
+
+    public Java15() {
+        super();
+    }
+
+    protected static int getVersion() {
+        return version;
+    }
+}
+----
