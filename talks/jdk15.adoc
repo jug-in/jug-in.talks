@@ -1,51 +1,49 @@
 :title: JDK 15
-:author: Jochen Bürkle
+//:author: Jochen Bürkle
 include::_theme/theme.adoc[]
 :imagesdir: talks/jdk15/img
 
 _released 2020-11-10_
+[Jochen Bürkle]
 
-== Kapitel
-Add a new garbage collection (GC) algorithm named Shenandoah which reduces GC pause times by doing evacuation work concurrently with the running Java threads. Pause times with Shenandoah are independent of heap size, meaning you will have the same consistent pause times whether your heap is 200 MB or 200 GB.
+== Java Releases Roadmap
+image::java-releases.png[]
 
-=== Subkapitel
-oiasdjoiasdjf asdiopjasdf, asdoüijasdkjasd asdfjh
+== ORACLE Definitionen zum JDK
 
-==== SubSubKapitel
-djsfhpsdfjhgsdkf öaksdjhfas asdphas asdojjhbf
-sadjfhasdo oasdfn
+[.j15]
+*Preview*
 
-=== Sub2
-* abcdjdsf
-* sdaljkfsda
-** sdafjkhasdf
-* dsafj
-* sadflkjhsda sadofbasd
-** asdkjfhasdjf
-*** asdkjfasd
-*** dsafkjhas
-** sadfkjnpi fawein
-* sadfjkb
+[.j15]
+_"A preview feature is a new feature whose design, specification, and implementation are complete, but which is not permanent, which means that the feature may exist in a different form or not at all in future JDK releases."_
 
-=== Sub3
+[.j15link]
+https://docs.oracle.com/en/java/javase/15/language/preview-language-and-vm-features.html
 
-[.code][source,java]
-----
-    -XX:+UnlockExperimentalVMOptions
-    -XX:+UseShenandoahGC
-----
+=== ORACLE Definitionen zum JDK
 
-[.code]
-----
-public class Java15 {
-    static final int version = 15;
+[.j15]
+*Incubator*
 
-    public Java15() {
-        super();
-    }
+[.j15]
+_"Incubator modules are a means of putting non-final APIs and non-final tools in the hands of developers, while the APIs/tools progress towards either finalization or removal in a future release."_
 
-    protected static int getVersion() {
-        return version;
-    }
-}
-----
+[.j15link]
+https://openjdk.java.net/jeps/11
+
+== Java 15 
+[.j15small]
+* 339: 	https://openjdk.java.net/jeps/339[Edwards-Curve Digital Signature Algorithm (EdDSA)]
+* 360: 	https://openjdk.java.net/jeps/360[Sealed Classes (Preview)]
+* 371: 	https://openjdk.java.net/jeps/371[Hidden Classes]
+* 372: 	https://openjdk.java.net/jeps/372[Remove the Nashorn JavaScript Engine]
+* 373: 	https://openjdk.java.net/jeps/373[Reimplement the Legacy DatagramSocket API]
+* 374: 	https://openjdk.java.net/jeps/374[Disable and Deprecate Biased Locking]
+* 375: 	https://openjdk.java.net/jeps/375[Pattern Matching for instanceof (Second Preview)]
+* 377: 	https://openjdk.java.net/jeps/377[ZGC: A Scalable Low-Latency Garbage Collector]
+* 378: 	https://openjdk.java.net/jeps/378[Text Blocks]
+* 379: 	https://openjdk.java.net/jeps/379[Shenandoah: A Low-Pause-Time Garbage Collector]
+* 381: 	https://openjdk.java.net/jeps/381[Remove the Solaris and SPARC Ports]
+* 383: 	https://openjdk.java.net/jeps/383[Foreign-Memory Access API (Second Incubator)]
+* 384: 	https://openjdk.java.net/jeps/384[Records (Second Preview)]
+* 385: 	https://openjdk.java.net/jeps/385[Deprecate RMI Activation for Removal]
