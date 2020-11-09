@@ -20,6 +20,9 @@ _"A preview feature is a new feature whose design, specification, and implementa
 [.j15link]
 https://docs.oracle.com/en/java/javase/15/language/preview-language-and-vm-features.html
 
+[.j15]
+Preview Features müssen per Compiler- bzw. JVM-Runtime Parameter explizit freigeschaltet werden
+
 === ORACLE Definitionen zum JDK
 
 [.j15]
@@ -47,3 +50,159 @@ https://openjdk.java.net/jeps/11
 * 383: 	https://openjdk.java.net/jeps/383[Foreign-Memory Access API (Second Incubator)]
 * 384: 	https://openjdk.java.net/jeps/384[Records (Second Preview)]
 * 385: 	https://openjdk.java.net/jeps/385[Deprecate RMI Activation for Removal]
+
+== JEP 372: Entfernung der Nashorn JavaScript Engine
+* Bei Release war Nashorn eine vollständige Implementierung des ECMAScript-262 5.1 Standards
+* Die Wartung der sich schnell weiter entwickelnden Sprache war eine sehr große Herausforderung
+
+Folgende zwei JVM-Module werden entfernt:
+
+* jdk.scripting.nashorn
+** Enthält die jdk.nashorn.api.scripting und jdk.nashorn.api.tree Packages
+* jdk.scripting.nashorn.shell 
+** Enthält das jjs tool
+
+== JEP 377: Zero GC und JEP 379: Shenandoah GC jetzt produktive Features
+
+[.j15]
+Die bereits in Java 12 eingeführten alternativen Garbage Collectors:
+[.j15]
+* Zero GC
+* Shenandoah GC
+[.j15]
+sind nicht mehr experimentell und können ohne Freischaltung experimenteller Features genutzt werden.
+
+
+== JEP 358: Helpful NullPointerException
+Gibt zur Laufzeit detailliertere Informationen beim Auftreten einer _NullPointerException_
+
+[.code][source,sh]
+----
+Exception in thread "main" java.lang.NullPointerException: Cannot invoke "String.compareTo(String)" because "a" is null
+	at b.j.j15.HelpfulNPE.f(HelpfulNPE.java:9)
+	at b.j.j15.HelpfulNPE.main(HelpfulNPE.java:5)
+----
+
+[.j15]
+* War bereits in Java 14 enthalten, dort aber standardmäßig deaktiviert
+* Ab Java 15 standardmäßig *aktiviert*
+* Kann via VM-Parameter _-XX:-ShowCodeDetailsInExceptionMessages_ deaktiviert werden
+
+
+== Methoden-lokale Interfaces, Enums und Records
+[.code][source,java]
+----
+    public static void main(String[] args) {
+        interface A { }
+        enum Languages { LATIN, FRENCH, GERMAN }
+        record C(A a, Languages l) { }
+        class B implements A { }
+    }
+----
+
+
+== JEP 378: Text Blocks
+[.j15]
+Erlaubt es im Quelltext Multiline-String-Literale zu definieren
+----
+    public static void main(String[] args) {
+        String s = """
+           Franz jagt 
+           im komplett verwahrlosten Taxi 
+           quer durch Bayern
+           """;
+    }
+----
+[.j15]
+* Es handelt sich um ein einziges String-Literal
+* Compiler fügt bei jedem Zeilenumbruch plattformunabhängig ein *\n* ein
+* Die Einrückung orientiert sich am sich am weitesten nach links eingerückten Zeile 
+
+=== Text Blocks: weitere Eigenschaften
+[.j15]
+* Soll der letzte Zeilenumbruch vermieden werden, muss der letzte """ hinter den Text
+* Programmatische Einrückung über neue String-Methode *indent(int n)*
+* Innerhalb des Textblocks dürfen einzelne *"* vorkommen
+* *Kein* Support für String-Templates
+
+
+== JEP 384: Records (Second Preview)
+[.j15]
+Records sind immutable, Struct-artige Datenklassen
+
+[.code][source,java]
+----
+public record Car(String brand, String model, int horsepower) { }
+----
+
+[.j15]
+* Werden durch *record* Schlüsselwort eingeleitet
+* Erzeugung durch Aufruf des kanonischen Konstruktors
+* Immutable properties werden in einen kanonischen Konstruktor-Parameter übergeben
+* Deren Namen sind zugleich die Namen der Accessor-Methoden (Nicht Beans-konform)
+* *equals()* und *hashCode()* werden auf Basis der Properties-Werte generiert
+
+=== Records: Weitere Eigenschaften
+[.j15]
+* Weitere Konstruktoren können erstellt werden, diese müssen aber an den kanonischen delegieren
+* Die Immutability ist "flach"
+** Inhalte von Collections können verändert werden
+** Es wird nicht in immutable Collections umkopiert
+* Records können nicht von anderen Klassen erben
+* Andere Klassen können nicht von Records erben 
+* Reflection-Unterstützung von Records
+** Class#isRecord()
+** Class#getRecordComponents()
+
+
+== JEP 360: Sealed Types
+[.j15]
+Für *sealed* Typen (Interfaces, Klassen) können die Untertypen eingeschränkt werden. 
+
+[.j15]
+Hierfür wurden folgende neue (Soft)-Schlüsselwörter eingeführt:
+[.j15]
+* *sealed*
+* *permits*
+* *non-sealed*
+
+[.j15]
+Die Subtypen des sealed Typen müssen sich im gleichen Package (oder ggf. Modul) befinden
+
+===  Der sealed Obertyp
+[.code][source,java]
+----
+public sealed class Vehicle permits Car, Truck, MoonRanger {
+}
+----
+
+[.j15]
+* *sealed* markiert Klasse als geschlossene Klasse
+* *permits* leitet die Liste der erlaubten Subtypen ein
+
+=== Die Untertypen des sealed Typs
+[.j15]
+Ein Untertyp eines sealed Typs muss einer der folgenden Eigenschaften besitzen:
+[.j15]
+* selbst wieder eine *sealed* Typ sein
+* ein *final* er Typ sein (Keine weiterverbung möglich)
+* ein *non-sealed* Typ sein
+
+[.code][source,java]
+----
+public final class Car extends Vehicle { }
+public sealed class Truck extends Vehicle permits MonsterTruck { }
+public non-sealed class MoonRanger extends Vehicle{ }
+----
+[.j15]
+Befinden sich alle Klassen in einer Datei, kann *permits* am sealed Typen weggelassen werden
+
+=== Reflection-Unterstützung für sealed Typen
+* boolean : Class # isSealed()
+* ClassDesc[] : Class # permittedSubclasses()
+
+== JEP 371: Hidden Classes
+* Erlaubt es, Klassen zu erzeugen, die nicht direkt durch den Bytecode andere Klassen verwendet werden kann
+* Diese Klassen sollen nur von den Frameworks verwendet werden, die sie erzeugt haben - indirekt via Reflection
+* Erlaubt die Deprecation von *sun.misc.Unsafe::defineAnonymousClass*
+
