@@ -109,7 +109,7 @@ Es wurden hauptsächlich 3 neue Abstraktionen eingeführt:
 * *java.net.DatagramSocket* und *java.net.MulticastSocket* sind bereits seit Version 1.0 Teil von Java
 * Die bisherige Implementierung war eine Mischung aus veraltetem Java- und C-Code
 * Schwierig zu maintainen und zu debuggen
-* *MulticastSocket* im besonderen war älter als die IPv6 Implementierungen
+* *MulticastSocket* im Besonderen war älter als die IPv6 Implementierungen
 * Die alte Implementierung war nicht NIO basiert
 
 === Neue Implementierung
@@ -138,11 +138,12 @@ Die bereits in Java 12 eingeführten alternativen Garbage Collectors:
 [.j15]
 * Zero GC
 * Shenandoah GC
+
 [.j15]
 sind nicht mehr experimentell und können ohne Freischaltung experimenteller Features genutzt werden.
 
 
-== JEP 358: Helpful NullPointerException
+== JEP 358: Helpful NullPointerException *
 Gibt zur Laufzeit detailliertere Informationen beim Auftreten einer _NullPointerException_
 
 [.code][source,sh]
@@ -158,7 +159,7 @@ Exception in thread "main" java.lang.NullPointerException: Cannot invoke "String
 * Kann via VM-Parameter _-XX:-ShowCodeDetailsInExceptionMessages_ deaktiviert werden
 
 
-== Methoden-lokale Interfaces, Enums und Records
+== Methoden-lokale Interfaces, Enums und Records *
 [.code][source,java]
 ----
     public static void main(String[] args) {
@@ -170,12 +171,18 @@ Exception in thread "main" java.lang.NullPointerException: Cannot invoke "String
 ----
 
 
-== JEP 375: Pattern Matching für instanceof (Second Preview)
-aka _Smart Cast_
+== JEP 375: Pattern Matching für instanceof (Second Preview) *
+aka _Smart Cast light_
+[.code][source,java]
+----
+    Object o = "Hallo JUG Ingolstadt";
+    if(o instanceof String s && s.length() > 3) {
+        s.indent(3);
+    }
+----
 
 
-
-== JEP 378: Text Blocks
+== JEP 378: Text Blocks *
 [.j15]
 Erlaubt es im Quelltext Multiline-String-Literale zu definieren
 ----
@@ -200,7 +207,7 @@ Erlaubt es im Quelltext Multiline-String-Literale zu definieren
 * *Kein* Support für String-Templates
 
 
-== JEP 384: Records (Second Preview)
+== JEP 384: Records (Second Preview) *
 [.j15]
 Records sind immutable, Struct-artige Datenklassen
 
@@ -229,7 +236,7 @@ public record Car(String brand, String model, int horsepower) { }
 ** Class#getRecordComponents()
 
 
-== JEP 360: Sealed Types
+== JEP 360: Sealed Types *
 [.j15]
 Für *sealed* Typen (Interfaces, Klassen) können die Untertypen eingeschränkt werden. 
 
