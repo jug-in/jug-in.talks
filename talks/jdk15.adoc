@@ -4,10 +4,14 @@ include::_theme/theme.adoc[]
 :imagesdir: talks/jdk15/img
 
 _released 2020-11-10_
+[.j15auth]
+Jochen Bürkle
 [Jochen Bürkle]
+
 
 == Java Releases Roadmap
 image::java-releases.png[]
+
 
 == ORACLE Definitionen zum JDK
 
@@ -34,6 +38,7 @@ _"Incubator modules are a means of putting non-final APIs and non-final tools in
 [.j15link]
 https://openjdk.java.net/jeps/11
 
+
 == Java 15 
 [.j15small]
 * 339: 	https://openjdk.java.net/jeps/339[Edwards-Curve Digital Signature Algorithm (EdDSA)]
@@ -51,6 +56,14 @@ https://openjdk.java.net/jeps/11
 * 384: 	https://openjdk.java.net/jeps/384[Records (Second Preview)]
 * 385: 	https://openjdk.java.net/jeps/385[Deprecate RMI Activation for Removal]
 
+
+== JEP 381: Entfernung der Solaris and SPARC Ports
+[.j15]
+* Aller Solaris/x64 spezifischer Source Code wurde entfernt
+* Aller Solaris/SPARC Architektur spezifischer Code wurde entfernt
+* Dokumentation und Quellcode wurde für zukünftige Releases angepasst
+
+
 == JEP 372: Entfernung der Nashorn JavaScript Engine
 * Bei Release war Nashorn eine vollständige Implementierung des ECMAScript-262 5.1 Standards
 * Die Wartung der sich schnell weiter entwickelnden Sprache war eine sehr große Herausforderung
@@ -61,6 +74,25 @@ Folgende zwei JVM-Module werden entfernt:
 ** Enthält die jdk.nashorn.api.scripting und jdk.nashorn.api.tree Packages
 * jdk.scripting.nashorn.shell 
 ** Enthält das jjs tool
+
+
+== JEP 383: Foreign-Memory Access API (Second Incubator)
+_"Einführung einer API mit der auf außerhalb des Java Heaps liegenden Speicher sicher und effizient zugegriffen werden kann"_
+
+[.j15hs]
+* Ziel: Einfache API um auf externen Speicher (native memory, persistent memory, managed heap memory) zugreifen zu können
+* Es wurde ein neues Modul *jdk.incubator.foreign* mit gleichnamigen Package eingeführt
+
+=== Foreign-Memory Access API - Abstraktionen
+[.j15]
+Es wurden hauptsächlich 3 neue Abstraktionen eingeführt:
+
+[.j15]
+** *MemorySegment* - modelliert einen zusammenhängenden Speicherbereich
+** *MemoryAddress* - modelliert eine Speicheradresse
+*** checked: Offset in einem bestehenden Memory Segment
+*** unchecked: Adresse deren räumliche und zeitliche Begrenzungen unbekannt sind (bspw. Speicheradresse nativer Speicher)
+** *MemoryLayout* - Programmatische Beschreibung des Inhalts eines Memory Segments
 
 
 == JEP 339: Edwards-Curve Digital Signature Algorithmus (EdDSA)
@@ -84,6 +116,20 @@ Folgende zwei JVM-Module werden entfernt:
 image::ueberarbeitung-ds.png[]
 [.j15small]
 Quelle: ORACLE
+
+
+== JEP 374: Dekativierung und Deprecation von Biased Locking
+[.j15]
+* Vor Java 15 war *Biased Locking* immer eingeschaltet und verfügbar
+* *Biased Locking* brachte vor allem _vor_ Java 1.2 Performance-Vorteile (*Hashtable*, *Vector*)
+* Heute werden hauptsächlich nicht-synchronisierte Datenstrukturen verwendet
+* *Biased Locking* ist aufwändig zu maintainen, bei immer geringer werdendem Nutzen
+
+Ab Java 15 ist *Biased Locking* per Standard deaktiviert
+
+[.j15]
+Wieder-einschalten mittels VM-Parameter *-XX:+UseBiasedLocking*
+
 
 == JEP 377: Zero GC und JEP 379: Shenandoah GC jetzt produktive Features
 
@@ -122,6 +168,11 @@ Exception in thread "main" java.lang.NullPointerException: Cannot invoke "String
         class B implements A { }
     }
 ----
+
+
+== JEP 375: Pattern Matching für instanceof (Second Preview)
+aka _Smart Cast_
+
 
 
 == JEP 378: Text Blocks

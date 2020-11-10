@@ -235,6 +235,11 @@ section.title {
     text-align: left;
 }
 
+.j15auth {
+    padding-top: 20% !important;
+    text-align: right;
+}
+
 .j15small {
     text-align: left;
     font-size: 75% !important;
