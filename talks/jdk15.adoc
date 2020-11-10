@@ -20,7 +20,7 @@ _"A preview feature is a new feature whose design, specification, and implementa
 [.j15link]
 https://docs.oracle.com/en/java/javase/15/language/preview-language-and-vm-features.html
 
-[.j15]
+[.j15hs]
 Preview Features müssen per Compiler- bzw. JVM-Runtime Parameter explizit freigeschaltet werden
 
 === ORACLE Definitionen zum JDK
@@ -61,6 +61,29 @@ Folgende zwei JVM-Module werden entfernt:
 ** Enthält die jdk.nashorn.api.scripting und jdk.nashorn.api.tree Packages
 * jdk.scripting.nashorn.shell 
 ** Enthält das jjs tool
+
+
+== JEP 339: Edwards-Curve Digital Signature Algorithmus (EdDSA)
+[.j15]
+* Zusätzlicher Signaturalgorithmus mittels elliptischer Kurven mit Vorteilen über bereits bestehende Algorithmen
+* Ersetzt *nicht* ECDSA
+* 126 Bits EdDSA ~= 128 Bits ECDSA
+* Plattformunabhängige Implementierung
+* (Nur) In SunEC-Provider verfügbar (Nicht zwangsweise in Anderen) 
+
+
+== JEP 373: Überarbeitung der Legacy DatagramSocket API
+[.j15]
+* *java.net.DatagramSocket* und *java.net.MulticastSocket* sind bereits seit Version 1.0 Teil von Java
+* Die bisherige Implementierung war eine Mischung aus veraltetem Java- und C-Code
+* Schwierig zu maintainen und zu debuggen
+* *MulticastSocket* im besonderen war älter als die IPv6 Implementierungen
+* Die alte Implementierung war nicht NIO basiert
+
+=== Neue Implementierung
+image::ueberarbeitung-ds.png[]
+[.j15small]
+Quelle: ORACLE
 
 == JEP 377: Zero GC und JEP 379: Shenandoah GC jetzt produktive Features
 
