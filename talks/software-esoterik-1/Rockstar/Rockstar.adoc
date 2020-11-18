@@ -1,0 +1,37 @@
+[%notitle]
+[role="nofooter"]
+== Rockstar
+
+[.huge.mtop10p]
+🤘
+
+== Rockstar
+
+[.mtop10p]
+[,"https://codewithrockstar.com/"]
+""
+Rockstar is a computer programming language designed for creating programs that are also hair metal power ballads.
+""
+
+[%notitle]
+[role="nofooter"]
+== Über
+
+image::Rockstar/ads.jpg[]
+
+[%notitle]
+[role="nofooter"]
+== Über
+
+image::Rockstar/twitter.jpg[]
+[.attribution]
+https://twitter.com/paulstovell/status/1013960369465782273
+
+== Über
+
+* 2018 von Dylan Beattie entworfen
+* Dynamisch typisiert
+* Turing-mächtig
+* Spec: https://github.com/RockstarLang/rockstar/blob/master/spec.md
+* Talk: https://youtu.be/gdSlcxxYAA8?t=2960
+* Online interpreter: https://codewithrockstar.com/online

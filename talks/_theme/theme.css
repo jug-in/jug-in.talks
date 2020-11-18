@@ -144,6 +144,10 @@ section.title {
     text-align: right;
 }
 
+.reveal blockquote {
+    width: 80%;
+}
+
 .reveal div.attribution.paragraph, .reveal div.attribution.paragraph p {
     font-size: 9pt;
     position:absolute;
@@ -230,3 +234,11 @@ section.title {
  .reveal > .slides > section > div, .reveal > .slides > section > section > div, .reveal > .slides > section > pre, .reveal > .slides > section > section > pre {
     text-align: left;
 }*/
+
+.mtop10p {
+    margin-top: 10% !important;
+}
+
+.huge p {
+    font-size: 5em;
+}

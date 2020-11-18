@@ -1,0 +1,56 @@
+== Die Idee
+
+* "Esoterischen Programmiersprache des Monats"
+* Kurze Einführung in die Sprache
+* Hello World
+* Soweit möglich:
+** FizzBuzz
+** Anagramm
+* #fewslides
+
+=== Hello World
+
+[source,java,indent=0]
+----
+include::HelloWorld.java[]
+----
+
+=== FizzBuzz
+
+// Fizz buzz ist ein Gruppen-Wortspiel für Kinder, das ihnen etwas über die mathematische Division beibringen soll. Die Spieler zählen abwechselnd inkremental, wobei jede durch drei teilbare Zahl durch das Wort "Fizz" und jede durch fünf teilbare Zahl durch das Wort "Buzz" ersetzt wird.
+// Fizz Buzz (in diesem Zusammenhang oft FizzBuzz geschrieben) wurde als Interview-screening-Instrument für Programmierer verwendet. Das Schreiben eines Programms zur Ausgabe der ersten 100 FizzBuzz-Zahlen ist ein triviales Problem für jeden Computerprogrammierer, so dass Interviewer leicht diejenigen mit unzureichenden Programmierfähigkeiten herausfiltern können.
+// https://de.wikipedia.org/wiki/Fizz_buzz
+
+[source,java,indent=0]
+----
+include::FizzBuzz.java[lines=1..-1]
+----
+
+=== Anagramm
+
+[source,java,indent=0]
+----
+include::Anagram.java[lines=4..-1]
+----
+
+[%notitle,role="center"]
+== Quote
+
+[,"Wikipedia"]
+""
+*Esoterische Programmiersprachen* sind Programmiersprachen, die nicht für den praktischen Einsatz entwickelt wurden, sondern um ungewöhnliche Sprachkonzepte umzusetzen.
+
+...
+
+Da Esoterik im Allgemeinen als Synonym für abwegige Pseudowissenschaften gilt, wurde der Begriff auf diejenigen Programmiersprachen übertragen, die in den Augen Außenstehender ebenso sinnlos und abwegig erscheinen.
+""
+// https://de.wikipedia.org/wiki/Esoterische_Programmiersprache
+
+== JavaScript
+
+[.fragment.mtop10p]
+(Spaß)
+[.fragment]
+{nbsp} +
+Trotzdem sehenswert: + 
+https://www.destroyallsoftware.com/talks/wat
