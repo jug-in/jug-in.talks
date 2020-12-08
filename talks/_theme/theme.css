@@ -230,6 +230,30 @@ section.title {
     float: right;
 }
 
+.j15 {
+    text-align: left;
+}
+
+.j15hs {
+    padding-top: 10% !important;
+    text-align: left;
+}
+
+.j15auth {
+    padding-top: 20% !important;
+    text-align: right;
+}
+
+.j15small {
+    text-align: left;
+    font-size: 75% !important;
+}
+
+.j15link {
+    text-align: right;	
+    font-size: 50% !important; 
+}
+
 /* uncomment to align the text in the slides
  .reveal > .slides > section > div, .reveal > .slides > section > section > div, .reveal > .slides > section > pre, .reveal > .slides > section > section > pre {
     text-align: left;
