@@ -2,7 +2,7 @@
 
 :revealjs_theme: white
 :revealjs_controlsTutorial: false
-:revealjs_controlsLayout: edges
+:revealjs_controlsLayout: bottom-right
 :revealjs_progress: true
 :revealjs_center: false
 :revealjs_slideNumber: h.v
