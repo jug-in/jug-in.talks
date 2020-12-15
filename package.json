@@ -2,6 +2,6 @@
   "dependencies": {
     "asciidoctor-plantuml": "^1.5.0",
     "asciidoctor-reveal.js": "^2.0.1",
-    "highlight.js": "^9.18.3"
+    "highlight.js": "^10.4.1"
   }
 }
