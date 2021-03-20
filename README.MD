@@ -2,7 +2,7 @@
 
 ## View
 * Offline/Local: Checkout the complete repository and open one of the top level HTML files.
-* Online: Browse to Github Pages followed by the HTML file, e.g.: https://jug-in.github.io/jug-in.talks/jdk12.html
+* Online: Browse to [Github Pages](https://jug-in.github.io/jug-in.talks/) for an overview of all talks.
 
 ## Edit
 The slides are build with https://asciidoctor.org/docs/asciidoctor-revealjs/, use the existing ones under /talks as example.

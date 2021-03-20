@@ -121,7 +121,6 @@
             <li><a target="_blank" href="https://twitter.com/jug_ingolstadt">https://twitter.com/jug_ingolstadt</a></li>
             <li><a target="_blank" href="https://www.meetup.com/jug-in/">https://www.meetup.com/jug-in</a></li>
             <li><a target="_blank" href="https://github.com/jug-in">https://github.com/jug-in</a></li>
-            <li><a target="_blank" href="https://gitlab.com/jug-in">https://gitlab.com/jug-in</a></li>
             <li><a target="_blank" href="https://www.xing.com/communities/groups/java-user-group-ingolstadt-ev-c8ae-1109997">https://www.xing.com/communities/groups/java-user-group-ingolstadt-ev-c8ae-1109997</a></li>
             <li><a target="_blank" href="https://www.linkedin.com/groups/8766833">https://www.linkedin.com/groups/8766833</a></li>
         </ul>

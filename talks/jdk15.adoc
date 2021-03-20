@@ -4,7 +4,7 @@ include::_theme/theme.adoc[]
 :imagesdir: talks/jdk15/img
 
 _released 2020-11-10_
-[.j15auth]
+[.leftauth]
 Jochen Bürkle
 [Jochen Bürkle]
 
@@ -15,32 +15,32 @@ image::java-releases.png[]
 
 == ORACLE Definitionen zum JDK
 
-[.j15]
+[.left]
 *Preview*
 
-[.j15]
+[.left]
 _"A preview feature is a new feature whose design, specification, and implementation are complete, but which is not permanent, which means that the feature may exist in a different form or not at all in future JDK releases."_
 
-[.j15link]
+[.rightlink]
 https://docs.oracle.com/en/java/javase/15/language/preview-language-and-vm-features.html
 
-[.j15hs]
+[.lefths]
 Preview Features müssen per Compiler- bzw. JVM-Runtime Parameter explizit freigeschaltet werden
 
 === ORACLE Definitionen zum JDK
 
-[.j15]
+[.left]
 *Incubator*
 
-[.j15]
+[.left]
 _"Incubator modules are a means of putting non-final APIs and non-final tools in the hands of developers, while the APIs/tools progress towards either finalization or removal in a future release."_
 
-[.j15link]
+[.rightlink]
 https://openjdk.java.net/jeps/11
 
 
 == Java 15 
-[.j15small]
+[.leftsmall]
 * 339: 	https://openjdk.java.net/jeps/339[Edwards-Curve Digital Signature Algorithm (EdDSA)]
 * 360: 	https://openjdk.java.net/jeps/360[Sealed Classes (Preview)]
 * 371: 	https://openjdk.java.net/jeps/371[Hidden Classes]
@@ -58,7 +58,7 @@ https://openjdk.java.net/jeps/11
 
 
 == JEP 381: Entfernung der Solaris and SPARC Ports
-[.j15]
+[.left]
 * Aller Solaris/x64 spezifischer Source Code wurde entfernt
 * Aller Solaris/SPARC Architektur spezifischer Code wurde entfernt
 * Dokumentation und Quellcode wurde für zukünftige Releases angepasst
@@ -79,15 +79,15 @@ Folgende zwei JVM-Module werden entfernt:
 == JEP 383: Foreign-Memory Access API (Second Incubator)
 _"Einführung einer API mit der auf außerhalb des Java Heaps liegenden Speicher sicher und effizient zugegriffen werden kann"_
 
-[.j15hs]
+[.lefths]
 * Ziel: Einfache API um auf externen Speicher (native memory, persistent memory, managed heap memory) zugreifen zu können
 * Es wurde ein neues Modul *jdk.incubator.foreign* mit gleichnamigen Package eingeführt
 
 === Foreign-Memory Access API - Abstraktionen
-[.j15]
+[.left]
 Es wurden hauptsächlich 3 neue Abstraktionen eingeführt:
 
-[.j15]
+[.left]
 ** *MemorySegment* - modelliert einen zusammenhängenden Speicherbereich
 ** *MemoryAddress* - modelliert eine Speicheradresse
 *** checked: Offset in einem bestehenden Memory Segment
@@ -96,7 +96,7 @@ Es wurden hauptsächlich 3 neue Abstraktionen eingeführt:
 
 
 == JEP 339: Edwards-Curve Digital Signature Algorithmus (EdDSA)
-[.j15]
+[.left]
 * Zusätzlicher Signaturalgorithmus mittels elliptischer Kurven mit Vorteilen über bereits bestehende Algorithmen
 * Ersetzt *nicht* ECDSA
 * 126 Bits EdDSA ~= 128 Bits ECDSA
@@ -105,7 +105,7 @@ Es wurden hauptsächlich 3 neue Abstraktionen eingeführt:
 
 
 == JEP 373: Überarbeitung der Legacy DatagramSocket API
-[.j15]
+[.left]
 * *java.net.DatagramSocket* und *java.net.MulticastSocket* sind bereits seit Version 1.0 Teil von Java
 * Die bisherige Implementierung war eine Mischung aus veraltetem Java- und C-Code
 * Schwierig zu maintainen und zu debuggen
@@ -114,12 +114,12 @@ Es wurden hauptsächlich 3 neue Abstraktionen eingeführt:
 
 === Neue Implementierung
 image::ueberarbeitung-ds.png[]
-[.j15small]
+[.leftsmall]
 Quelle: ORACLE
 
 
 == JEP 374: Dekativierung und Deprecation von Biased Locking
-[.j15]
+[.left]
 * Vor Java 15 war *Biased Locking* immer eingeschaltet und verfügbar
 * *Biased Locking* brachte vor allem _vor_ Java 1.2 Performance-Vorteile (*Hashtable*, *Vector*)
 * Heute werden hauptsächlich nicht-synchronisierte Datenstrukturen verwendet
@@ -127,19 +127,19 @@ Quelle: ORACLE
 
 Ab Java 15 ist *Biased Locking* per Standard deaktiviert
 
-[.j15]
+[.left]
 Wieder-einschalten mittels VM-Parameter *-XX:+UseBiasedLocking*
 
 
 == JEP 377: Zero GC und JEP 379: Shenandoah GC jetzt produktive Features
 
-[.j15]
+[.left]
 Die bereits in Java 12 eingeführten alternativen Garbage Collectors:
-[.j15]
+[.left]
 * Zero GC
 * Shenandoah GC
 
-[.j15]
+[.left]
 sind nicht mehr experimentell und können ohne Freischaltung experimenteller Features genutzt werden.
 
 
@@ -153,7 +153,7 @@ Exception in thread "main" java.lang.NullPointerException: Cannot invoke "String
 	at b.j.j15.HelpfulNPE.main(HelpfulNPE.java:5)
 ----
 
-[.j15]
+[.left]
 * War bereits in Java 14 enthalten, dort aber standardmäßig deaktiviert
 * Ab Java 15 standardmäßig *aktiviert*
 * Kann via VM-Parameter _-XX:-ShowCodeDetailsInExceptionMessages_ deaktiviert werden
@@ -183,7 +183,7 @@ aka _Smart Cast light_
 
 
 == JEP 378: Text Blocks *
-[.j15]
+[.left]
 Erlaubt es im Quelltext Multiline-String-Literale zu definieren
 ----
     public static void main(String[] args) {
@@ -194,13 +194,13 @@ Erlaubt es im Quelltext Multiline-String-Literale zu definieren
            """;
     }
 ----
-[.j15]
+[.left]
 * Es handelt sich um ein einziges String-Literal
 * Compiler fügt bei jedem Zeilenumbruch plattformunabhängig ein *\n* ein
 * Die Einrückung orientiert sich am sich am weitesten nach links eingerückten Zeile 
 
 === Text Blocks: weitere Eigenschaften
-[.j15]
+[.left]
 * Soll der letzte Zeilenumbruch vermieden werden, muss der letzte """ hinter den Text
 * Programmatische Einrückung über neue String-Methode *indent(int n)*
 * Innerhalb des Textblocks dürfen einzelne *"* vorkommen
@@ -208,7 +208,7 @@ Erlaubt es im Quelltext Multiline-String-Literale zu definieren
 
 
 == JEP 384: Records (Second Preview) *
-[.j15]
+[.left]
 Records sind immutable, Struct-artige Datenklassen
 
 [.code][source,java]
@@ -216,7 +216,7 @@ Records sind immutable, Struct-artige Datenklassen
 public record Car(String brand, String model, int horsepower) { }
 ----
 
-[.j15]
+[.left]
 * Werden durch *record* Schlüsselwort eingeleitet
 * Erzeugung durch Aufruf des kanonischen Konstruktors
 * Immutable properties werden in einen kanonischen Konstruktor-Parameter übergeben
@@ -224,7 +224,7 @@ public record Car(String brand, String model, int horsepower) { }
 * *equals()* und *hashCode()* werden auf Basis der Properties-Werte generiert
 
 === Records: Weitere Eigenschaften
-[.j15]
+[.left]
 * Weitere Konstruktoren können erstellt werden, diese müssen aber an den kanonischen delegieren
 * Die Immutability ist "flach"
 ** Inhalte von Collections können verändert werden
@@ -237,17 +237,17 @@ public record Car(String brand, String model, int horsepower) { }
 
 
 == JEP 360: Sealed Types *
-[.j15]
+[.left]
 Für *sealed* Typen (Interfaces, Klassen) können die Untertypen eingeschränkt werden. 
 
-[.j15]
+[.left]
 Hierfür wurden folgende neue (Soft)-Schlüsselwörter eingeführt:
-[.j15]
+[.left]
 * *sealed*
 * *permits*
 * *non-sealed*
 
-[.j15]
+[.left]
 Die Subtypen des sealed Typen müssen sich im gleichen Package (oder ggf. Modul) befinden
 
 ===  Der sealed Obertyp
@@ -257,14 +257,14 @@ public sealed class Vehicle permits Car, Truck, MoonRanger {
 }
 ----
 
-[.j15]
+[.left]
 * *sealed* markiert Klasse als geschlossene Klasse
 * *permits* leitet die Liste der erlaubten Subtypen ein
 
 === Die Untertypen des sealed Typs
-[.j15]
+[.left]
 Ein Untertyp eines sealed Typs muss einer der folgenden Eigenschaften besitzen:
-[.j15]
+[.left]
 * selbst wieder eine *sealed* Typ sein
 * ein *final* er Typ sein (Keine weiterverbung möglich)
 * ein *non-sealed* Typ sein
@@ -275,7 +275,7 @@ public final class Car extends Vehicle { }
 public sealed class Truck extends Vehicle permits MonsterTruck { }
 public non-sealed class MoonRanger extends Vehicle{ }
 ----
-[.j15]
+[.left]
 Befinden sich alle Klassen in einer Datei, kann *permits* am sealed Typen weggelassen werden
 
 === Reflection-Unterstützung für sealed Typen

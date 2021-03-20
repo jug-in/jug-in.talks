@@ -230,26 +230,26 @@ section.title {
     float: right;
 }
 
-.j15 {
+.left {
     text-align: left;
 }
 
-.j15hs {
+.lefths {
     padding-top: 10% !important;
     text-align: left;
 }
 
-.j15auth {
+.leftauth {
     padding-top: 20% !important;
     text-align: right;
 }
 
-.j15small {
+.leftsmall {
     text-align: left;
     font-size: 75% !important;
 }
 
-.j15link {
+.rightlink {
     text-align: right;	
     font-size: 50% !important; 
 }

@@ -1,0 +1,327 @@
+:title: JDK 16
+//:author: Florian Heubeck
+include::_theme/theme.adoc[]
+:imagesdir: talks/jdk16
+
+_released 2021-03-16_
+
+== JEP 396: Strongly Encapsulate JDK Internals by Default
+
+[.left]
+Zugriff auf JDK interne Klassen, Methoden oder Felder wird - bis auf ein paar kritische Ausnahmen wie z.B. `sun.misc.Unsafe` - bei Strafe untersagt.
+
+* < JDK16: `--illegal-access=permit`
+* >= JDK16: `--illegal-access=deny` (Deprecated)
+
+[.left]
+Feingranular: `--add-opens java.base/java.util=ALL-UNNAMED`
+
+== JEP 390: Warnings for Value-based Classes
+
+[.left]
+Annotation `@jdk.internal.ValueBased` für "value-based" Klassen wie z.B. `Integer`.
+
+* Synchronisierung darauf führt zur Compiler Warnung.
+* Value Semantik soll etabliert werden.
+* Flag `-XX:DiagnoseSyncOnValueBasedClasses` führt zu entsprechenden Laufzeitwarnungen.
+* Konstruktoren dieser Klassen wie `Integer(int)` und `Integer(String)` wurden "Deprecated for removal".
+
+== JEP 389: Foreign Linker API (Incubator)
+
+* Statisch typisierter Zugriff auf nativen Code.
+* Vereinfachung des fehlerbehafteten Zugriff auf native Bibliotheken.
+* Ersatz für JNI.
+
+[.code][source,java]
+----
+MethodHandle strlen = CLinker.getInstance().downcallHandle(
+        LibraryLookup.ofDefault().lookup("strlen"),
+        MethodType.methodType(long.class, MemoryAddress.class),
+        FunctionDescriptor.of(C_LONG, C_POINTER)
+    );
+
+try (MemorySegment str = CLinker.toCString("Hello")) {
+   long len = strlen.invokeExact(str.address()); // 5
+}
+----
+
+== JEP 393: Foreign-Memory Access API (Third Incubator)
+
+* API für sicheren und effizienten Zugriff auf fremden Memory außerhalb des Java Heap.
+* Ersatz für `sun.misc.Unsafe`.
+
+[.code][source,java]
+----
+VarHandle intHandle = MemoryHandles.varHandle(int.class,
+        ByteOrder.nativeOrder());
+
+try (MemorySegment segment = MemorySegment.allocateNative(100)) {
+    for (int i = 0; i < 25; i++) {
+        intHandle.set(segment, i * 4, i);
+    }
+}
+----
+
+== Add InvocationHandler::invokeDefault Method for Proxy's Default Method Support
+
+* Neue Methode `invokeDefault` wurde dem `java.lang.reflect.InvocationHandler` Interface hinzufügt.
+* Ermöglicht den Aufruf von default Methoden in Proxy Interfaces.
+
+== JEP 380: Unix domain sockets
+
+[.left]
+Unterstützung für Unix domain sockets (AF_UNIX) wurde den `java.nio.channels` Klassen hinzugefügt.
+
+== Day Period Support Added to java.time Formats
+
+[.left]
+Neues Formatter Pattern `B` in
+`java.time.format.DateTimeFormatter`
+und `DateTimeFormatterBuilder`
+nach link:https://unicode.org/reports/tr35/tr35-dates.html#dayPeriods[Unicode Technical Standard #35 Part 4 Section 2.3].
+
+=== Locale and time dependent
+
+[.code][source,java]
+----
+int hour;
+DateTimeFormatter.ofPattern("B").format(LocalTime.now().withHour(hour));
+
+/* default Locale = GERMAN */
+// hour 0-4: "nachts"
+// hour 5-9: "morgens"
+// hour 10-11: "vormittags"
+// hour 12: "mittags"
+// hour 13-17: "nachmittags"
+// hour 18-23: "abends"
+
+/* default Locale = ENGLISH */
+// hour 0-5: "at night"
+// hour 6-11: "in the morning"
+// hour 12-17: "in the afternoon"
+// hour 18-20: "in the evening"
+// hour 21-23: "at night"
+----
+
+== Add Stream.toList() Method
+
+[.code][source,java]
+----
+List<String> list = Stream.of("This", "is", "useful").toList();
+----
+
+== JEP 338: Vector API (Incubator)
+
+`jdk.incubator.vector` Klassen, z.B. IntVector, FloatVector.
+
+* Unmittelbare Unterstützung sogenannter "Single Instruction Multiple Data (SIMD)" CPU Befehlssätze.
+* Architektur agnositisch, Software Fallback.
+
+[.code][source,java]
+----
+FloatVector va = FloatVector.fromArray(a, 0), vb = FloatVector.fromArray(b, 0);
+FloatVector vc = va.mul(va).add(vb.mul(vb)).neg();
+}
+
+// similar to
+for (int i = 0; i < a.length; i++) {
+        c[i] = (a[i] * a[i] + b[i] * b[i]) * -1.0f;
+}
+----
+
+== Improved CompileCommand Flag
+
+[.left]
+`CompilerCommand` war bisher Fehleranfällig aufgrund dynamischer Parameterlisten:
+
+`-XX:CompileCommand=option,<method pattern>,<option name>,<value type>,<value>`
+
+[.left]
+Dies ist nun für jede Option separat zu verwenden, es erfolgt eine Validierung und hilfreiche Fehlermeldungen:
+
+`-XX:CompileCommand=<option name>,<method pattern>,<value>`
+
+== Concurrently Uncommit Memory in G1
+
+[.left]
+G1 Garbage Collector verlagert die aufwändigen Prozesse aus der GC Pause in einen nebenläufigen Thread.
+
+== JEP 376: ZGC Concurrent Stack Processing
+
+[.left]
+Z Garbage Collector verarbeitet Thread Stacks nun nebenläufig, damit wird die GC Pause des ZGC konstant im Bereich von ein paar Hundert Mikrosekunden.
+
+== New jdk.ObjectAllocationSample Event Enabled by Default
+
+[.left]
+Neues Java-Flight-Recorder Ereignis `jdk.ObjectAllocationSample` eingeführt, das ein ständiges Allocation Profiling mit geringen Overhead ermöglicht.
+
+== JEP 387: Elastic Metaspace
+
+* VM-interne Metaspace und Class-Space implementierungen überarbeitet mit dem Ergebnis des geringeren Speicherverbrauchs.
+* Neuer Schalter: `XX:MetaspaceReclaimPolicy=(balanced|aggressive|none)`
+* Schalter `InitialBootClassLoaderMetaspaceSize` und `UseLargePagesInMetaspace` deprecated.
+
+== jarsigner Preserves POSIX File Permission and symlink Attributes
+
+[.left]
+Jarsigner beachtet POSIX Datei Flags.
+
+== SUN, SunRsaSign, and SunEC Providers Supports SHA-3 Based Signature Algorithms
+
+[.left]
+SHA-3 Unterstützung zu den genannten Providern hinzugefügt.
+
+== Signed JAR Support for RSASSA-PSS and EdDSA
+
+* Die genannten Alorithmen werden vom JarSigner unterstützt.
+* Erzeugen von RFC 5652 und RFC 6211 Signaturen.
+
+== Added -trustcacerts and -keystore Options to keytool -printcert and -printcrl Commands
+
+[.left]
+Die keytool Optionen `-printcert` und `-printcrl` haben die Optionen `-trustcacerts` und `-keystore` erhalten.
+
+== SunPKCS11 Provider Supports SHA-3 Related Algorithms
+
+* Der SunPKCS11 Provider hat SHA-3 Unterstützung erhalten.
+* Weitere Erweiterungen.
+
+== Improve Certificate Chain Handling
+
+Neue System Properties:
+* `jdk.tls.maxHandshakeMessageSize`
+* `jdk.tls.maxCertificateChainLength`
+
+== Improve Encoding of TLS Application-Layer Protocol Negotiation (ALPN) Values
+
+[.left]
+Verbesserungen im SunJSSE Provider für TLS Protokoll Verhandlungen.
+
+== TLS Support for the EdDSA Signature Algorithm
+
+[.left]
+EdDSA Signatur Unterstützung für den SunJSSE Provider.
+
+== JEP 395: Records
+
+[.left]
+Neue Klassenart als vollwertiges Sprachelement für unveränderliche Daten.
+
+[.code][source,java]
+----
+record JavaTreff(LocalDate day, String... topics) {}
+
+var jt = new JavaTreff(LocalDate.now(), "Java 16");
+LocalDate when = jt.day();
+String[] what = jt.topics();
+jt.hashCode(); jt.toString(); jt.equals(other);
+----
+
+== JEP 394: Pattern Matching for instanceof
+
+[.left]
+Das `instanceof` Pattern Matching (seit JDK 14) ist nun vollwertiges Sprachfeature:
+
+[.code][source,java]
+----
+Number n = getNumber();
+if (n instanceof Integer i) { }
+if (n instanceof Float f) { }
+----
+
+== JEP 397: Sealed Classes (Second Preview)
+
+[.left]
+Sealed Classes bleiben ein Preview Feature, Records werden unterstützt:
+
+[.code][source,java]
+----
+public sealed interface Expr
+permits ConstantExpr, PlusExpr, TimesExpr, NegExpr { ... }
+
+public record ConstantExpr(int i)       implements Expr { ... }
+public record PlusExpr(Expr a, Expr b)  implements Expr { ... }
+public record TimesExpr(Expr a, Expr b) implements Expr { ... }
+public record NegExpr(Expr e)           implements Expr { ... }
+----
+
+== JEP 392: Packaging Tool
+
+[.left]
+Das Tool `jpackage` (seit JDK 14) verlässt den Incubator Status und gilt nun als produktionsreif.
+
+== Entfernte Features und Optionen
+
+* Removal of java.awt.PeerFixer
+* Removal of Experimental Features AOT and Graal JIT
+* Deprecated Tracing Flags Are Obsolete and Must Be Replaced With Unified Logging Equivalents
+* Removed Root Certificates with 1024-bit Keys
+* Removal of Legacy Elliptic Curves
+
+== Deprecated Features und Optionen
+
+* Terminally Deprecated ThreadGroup stop, destroy, isDestroyed, setDaemon and isDaemon
+* Parts of the Signal-Chaining API Are Deprecated
+* Deprecated the java.security.cert APIs That Represent DNs as Principal or String Objects
+
+== Bekannte Probleme
+
+* Incomplete Support for Unix Domain Sockets in Windows 2019 Server
+* TreeMap.computeIfAbsent Mishandles Existing Entries Whose Values Are null
+
+== Sonstige Änderungen und Fehlerbehebungen 1
+
+* Line Terminator Definition Changed in java.io.LineNumberReader
+* Enhanced Support of Proxy Class
+* Support Supplementary Characters in String Case Insensitive Operations
+* Module::getPackages Returns the Set of Package Names in This Module
+
+== Sonstige Änderungen und Fehlerbehebungen 2
+
+* Proxy Classes Are Not Open for Reflective Access
+* HttpClient.newHttpClient and HttpClient.Builder.build Might Throw UncheckedIOException
+* The Default HttpClient Implementation Returns Cancelable Futures
+* HttpPrincipal::getName Returned Incorrect Name
+
+== Sonstige Änderungen und Fehlerbehebungen 3
+
+* (fs) NullPointerException Not Thrown When First Argument to Path.of or Paths.get Is null
+* US/Pacific-New Zone Name Removed as Part of tzdata2020b
+* Argument Index of Zero or Unrepresentable by int Throws IllegalFormatException
+* GZIPOutputStream Sets the GZIP OS Header Field to the Correct Default Value
+
+== Sonstige Änderungen und Fehlerbehebungen 4
+
+* Refine ZipOutputStream.putNextEntry() to Recalculate ZipEntry's Compressed Size
+* java.util.logging.LogRecord Updated to Support Long Thread IDs
+* Support for CLDR Version 38
+* Added Property to Control LDAP Authentication Mechanisms Allowed to Authenticate Over Clear Connections
+
+== Sonstige Änderungen und Fehlerbehebungen 5
+
+* LDAP Channel Binding Support for Java GSS/Kerberos
+* Make JVMTI Table Concurrent
+* Object Monitors No Longer Keep Strong References to Their Associated Object
+* IncompatibleClassChangeError Exceptions Are Thrown For Failing 'final' Checks When Defining a Class
+
+== Sonstige Änderungen und Fehlerbehebungen 6
+
+* Upgraded the Default PKCS12 Encryption and MAC Algorithms
+* Added Entrust Root Certification Authority - G4 certificate
+* Added 3 SSL Corporation Root CA Certificates
+* Disable TLS 1.0 and 1.1
+
+== Sonstige Änderungen und Fehlerbehebungen 7
+
+* Annotation Interfaces May Not Be Declared As Local Interfaces
+* C-Style Array Declarations Are Not Allowed in Record Components
+* DocLint Support Moved to jdk.javadoc Module
+* Eliminating Duplication in Simple Documentation Comments
+
+== Sonstige Änderungen und Fehlerbehebungen 8
+
+* Viewing API Documentation on Small Devices
+* API Documentation Links to Platform Documentation
+* Improvements for JavaDoc Search
+
