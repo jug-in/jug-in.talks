@@ -1,6 +1,6 @@
 == Die Idee
 
-* "Esoterischen Programmiersprache des Monats"
+* "Esoterische Programmiersprache des Monats"
 * Kurze Einführung in die Sprache
 * Hello World
 * Soweit möglich:
@@ -45,12 +45,3 @@ include::Anagram.java[lines=4..-1]
 Da Esoterik im Allgemeinen als Synonym für abwegige Pseudowissenschaften gilt, wurde der Begriff auf diejenigen Programmiersprachen übertragen, die in den Augen Außenstehender ebenso sinnlos und abwegig erscheinen.
 ""
 // https://de.wikipedia.org/wiki/Esoterische_Programmiersprache
-
-== JavaScript
-
-[.fragment.mtop10p]
-(Spaß)
-[.fragment]
-{nbsp} +
-Trotzdem sehenswert: + 
-https://www.destroyallsoftware.com/talks/wat

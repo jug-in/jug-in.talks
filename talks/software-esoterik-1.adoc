@@ -1,12 +1,13 @@
-:title: Software-Esoterik
+:title: Software-Esoterik-1
 //:author: Bernd Stübinger
 //:date: 2020-11-10
 include::_theme/theme.adoc[]
 :imagesdir: talks/software-esoterik-1
 :src: software-esoterik-1
 
-#fewslides
 
 include::{src}/intro.adoc[]
+
+include::{src}/JavaScript/JavaScript.adoc[]
 
 include::{src}/Rockstar/Rockstar.adoc[]
