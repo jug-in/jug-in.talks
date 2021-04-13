@@ -1,0 +1,10 @@
+:title: Software-Esoterik-2
+//:author: Bernd Stübinger
+//:date: 2021-03-09
+include::_theme/theme.adoc[]
+:imagesdir: talks/software-esoterik-2
+:src: software-esoterik-2
+
+include::software-esoterik-1/intro.adoc[]
+
+include::{src}/Brainfuck/Brainfuck.adoc[]

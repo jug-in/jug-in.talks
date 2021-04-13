@@ -1,0 +1,37 @@
+[%notitle]
+[role="nofooter"]
+== Brainfuck
+
+[.huge.mtop10p]
+🤯
+
+== Brainfuck
+
+[.mtop10p]
+[,"https://www.muppetlabs.com/~breadbox/bf/"]
+""
+Brainfuck is the ungodly creation of Urban Müller, whose goal was apparently to create a Turing-complete language for which he could write the smallest compiler ever, for the Amiga OS 2.0.
+""
+
+== Über
+
+* 1993 von Urban Müller entworfen
+* Turing-mächtig
+* "Spec":
++
+----
+int ptr;
+byte[] arr = new byte[30000];
+
++    arr[ptr]++;
+-    arr[ptr]--;
+>    ptr++;
+<    ptr--;
+.    System.out.println((char) arr[ptr]);
+,    System.in.read();
+[    while (arr[ptr] != 0) {
+]    }
+----
+// * No formal spec
+// * No talk
+* Online interpreter: https://gc.de/gc/brainfuck/

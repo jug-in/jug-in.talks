@@ -1,0 +1,8 @@
+== JavaScript
+
+[.fragment.mtop10p]
+(Spaß)
+[.fragment]
+{nbsp} +
+Trotzdem sehenswert: + 
+https://www.destroyallsoftware.com/talks/wat
