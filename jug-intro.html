@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JUG Ingolstadt e.V.</title>
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport">
+  <link href="node_modules/reveal.js/css/reveal.css" rel="stylesheet">
+  <link rel="stylesheet" href="node_modules/reveal.js/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="talks/_theme/theme.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class="title" data-state="title" data-background-image="talks/_theme/bg-title.png">
+        <h1 style="text-align: left; white-space: pre;" id="title">Java-Treff</h1>
+        <div class="preamble">
+          <script type="text/javascript">
+            window.addEventListener("load", function () {
+              // Move footer to correct position
+              revealDiv = document.querySelector("body div.reveal")
+              footer = document.getElementById("slide-footer");
+              revealDiv.appendChild(footer);
+              // Insert current date
+              document.getElementById("current-date").innerText = new Date().toJSON().slice(0, 10);
+              // Insert title
+              const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+              });
+              if (params.title) {
+                document.getElementById("title").innerText = params.title.replaceAll("\\n", "\r\n");
+              }
+            });
+          </script>
+          <div id="slide-footer" class="footer">
+            <span id="slide-footer-left" class="footer-left title"><img alt="Duke Logo" src="talks/_theme/jug-in_duke.png" /></span>
+            <span id="slide-footer-center" class="footer-center" style="text-align: right; width: 99%">Java User Group Ingolstadt e.V. • <a href="https://jug-in.bayern">https://jug-in.bayern</a></span>
+          </div>
+          <div class="paragraph">
+            <p id="current-date" style="text-align: left;"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="node_modules/reveal.js/js/reveal.js"></script>
+  <script>
+    // See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+    Reveal.initialize({
+      // Display presentation control arrows
+      controls: false,
+      // Help the user learn the controls by providing hints, for example by
+      // bouncing the down arrow when they first encounter a vertical slide
+      controlsTutorial: false,
+      // Determines where controls appear, "edges" or "bottom-right"
+      controlsLayout: 'bottom-right',
+      // Visibility rule for backwards navigation arrows; "faded", "hidden"
+      // or "visible"
+      controlsBackArrows: 'faded',
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: '',
+      // Control which views the slide number displays on
+      showSlideNumber: 'all',
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: false,
+      // Enable the slide overview mode
+      overview: false,
+      // Vertical centering of slides
+      center: false,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Change the presentation direction to be RTL
+      rtl: false,
+      // Randomizes the order of slides each time the presentation loads
+      shuffle: false,
+      // Turns fragments on and off globally
+      fragments: true,
+      // Flags whether to include the current fragment in the URL,
+      // so that reloading brings you to the same fragment position
+      fragmentInURL: true,
+      // Flags if the presentation is running in an embedded mode,
+      // i.e. contained within a limited portion of the screen
+      embedded: false,
+      // Flags if we should show a help overlay when the questionmark
+      // key is pressed
+      help: true,
+      // Flags if speaker notes should be visible to all viewers
+      showNotes: false,
+      // Global override for autolaying embedded media (video/audio/iframe)
+      // - null: Media will only autoplay if data-autoplay is present
+      // - true: All media will autoplay, regardless of individual setting
+      // - false: No media will autoplay, regardless of individual setting
+      autoPlayMedia: null,
+      // Number of milliseconds between automatically proceeding to the
+      // next slide, disabled when set to 0, this value can be overwritten
+      // by using a data-autoslide attribute on your slides
+      autoSlide: 0,
+      // Stop auto-sliding after user input
+      autoSlideStoppable: true,
+      // Use this method for navigation when auto-sliding
+      autoSlideMethod: Reveal.navigateNext,
+      // Specify the average time in seconds that you think you will spend
+      // presenting each slide. This is used to show a pacing timer in the
+      // speaker view
+      defaultTiming: 120,
+      // Enable slide navigation via mouse wheel
+      mouseWheel: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Opens links in an iframe preview overlay
+      // Add `data-preview-link` and `data-preview-link="false"` to customise each link
+      // individually
+      previewLinks: false,
+      // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+      transition: 'slide',
+      // Transition speed (e.g., default, fast, slow)
+      transitionSpeed: 'default',
+      // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+      backgroundTransition: 'fade',
+      // Number of slides away from the current that are visible
+      viewDistance: 3,
+      // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+      parallaxBackgroundImage: '',
+      // Parallax background size in CSS syntax (e.g., "2100px 900px")
+      parallaxBackgroundSize: '',
+      // Number of pixels to move the parallax background per slide
+      // - Calculated automatically unless specified
+      // - Set to 0 to disable movement along an axis
+      parallaxBackgroundHorizontal: null,
+      parallaxBackgroundVertical: null,
+      // The display mode that will be used to show slides
+      display: 'block',
+      // The "normal" size of the presentation, aspect ratio will be preserved
+      // when the presentation is scaled to fit different resolutions. Can be
+      // specified using percentage units.
+      width: 1280,
+      height: 720,
+      // Factor of the display size that should remain empty around the content
+      margin: 0.1,
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.2,
+      maxScale: 1.5,
+    });</script>
+</body>
+</html>
