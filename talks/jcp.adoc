@@ -1,0 +1,103 @@
+:title: JCP - The Java Community Process
+//:author: Florian Heubeck
+include::_theme/theme.adoc[]
+:imagesdir: talks/jcp
+
+== Celebrating 25 Years JCP
+
+image::NY25th_cake.png[Cake,200]
+
+* https://www.youtube.com/watch?v=1ZLk92MJIqw[]
+* https://jcp.org/aboutJava/communityprocess/media/JCP25th-Anniversary-2023.mp4[]
+
+== Purpose
+
+[,"JCP Program"]
+""
+There to continually evolve the Java platform with the help of the international Java developer community
+""
+
+=== Goals
+
+* Enable the broader Java Community to participate in the proposal, selection, and development of Java APIs
+* Enable members of the Java Community to propose and carry-out new API development
+* Ensure that the process is faithfully followed by all participants
+* Ensure that each specification is backed by both a reference implementation and TCK
+* Help foster a good liaison between the Java Community and other bodies such as consortia, standards bodies, academic research groups, and non-profit organizations.
+
+== History
+
+// https://www.oracle.com/corporate/standards/#25-year-timeline
+
+image:time1.png[]
+
+=== History
+
+image:time2.png[]
+
+=== History
+
+image:time3.png[]
+
+=== History
+
+image:time4.png[]
+
+== JCP Procedures
+
+image:JSR_Life_Cycle_Dec2018.png[]
+
+=== Initiation
+
+[.left]
+Specifications (JSRs) are
+
+[.left]
+* initiated by community members
+* approved for development by the Executive Committee
+
+=== Draft Releases
+
+[.left]
+Approved JSRs are
+
+[.left]
+* drafted by (on demand formed) expert groups
+* reviewed by the public
+
+[.left]
+Experts are
+
+[.left]
+* nominated by JSPA members
+* lead the JSR through the process
+
+JCP executive committee decides on public review ballot
+
+=== Final Release
+
+[.left]
+* Expert Group revise into a Proposed Final Draft
+* Reference implementation and TCK get completed
+* Final approval by the Executive Committee
+* Spec, ref. Impl. and TCK get published
+
+=== Maintenance
+
+[.left]
+* Clarification
+* Interpretation
+* Enhancements
+* Revisions
+
+[.left]
+via issue tracker
+
+Executive Committee decides on changes to a Spec, or pushes back to Expert Group
+
+== Name me
+
+* *JCP* - Java Community Process
+* *JSR* - Java Specification Request
+* *JEP* - JDK Enhancement Proposal
+* *JLS* - Java Language Specification
